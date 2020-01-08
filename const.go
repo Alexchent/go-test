@@ -32,5 +32,6 @@ func main(){
     	B = iota
     	C = iota
     )
+    
     fmt.Println(A,B,C)
 }
