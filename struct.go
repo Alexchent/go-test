@@ -22,4 +22,21 @@ func main() {
 
 
     fmt.Println(a.title)
+
+    var book1 Books
+    book1.title = "Python 教程"
+    book1.author = "jack"
+    book1.subject = "test"
+    book1.book_id = 6788
+
+    printBook(book1)
+}
+
+
+
+func printBook(book Books) {
+	fmt.Printf( "Book title : %s\n", book.title)
+   fmt.Printf( "Book author : %s\n", book.author)
+   fmt.Printf( "Book subject : %s\n", book.subject)
+   fmt.Printf( "Book book_id : %d\n", book.book_id)
 }
