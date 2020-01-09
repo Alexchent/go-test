@@ -21,8 +21,5 @@ func main() {
 }
 
 func swap(x *int, y *int) {
-   var temp int
-   temp = *x    /* 保存 x 地址的值 */
-   *x = *y      /* 将 y 赋值给 x */
-   *y = temp    /* 将 temp 赋值给 y */
+   *x, *y = *y, *x
 }
