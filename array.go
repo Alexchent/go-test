@@ -13,7 +13,8 @@ func main(){
 		n[i] = i +100
 		fmt.Printf("%d 位的值为 %d\n", i, n[i])
 	}
-
+    
+    fmt.Println(n)
 
     //声明一个多维数组
 	var a = [5][2]int {{0,0},{1,2},{2,4},{3,6},{4,8}}
