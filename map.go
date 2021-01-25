@@ -12,23 +12,21 @@ func main() {
     countryCapital["Japan"] = "东京"
     countryCapital["India"] = "新德里"
 
-    for country,captial := range countryCapital {
-    	fmt.Println(country,"首都是",captial)
-    	fmt.Println(country,"首都是",countryCapital[country])
+    for index,_ := range countryCapital {
+    	//fmt.Println(index,"首都是",value)
+    	fmt.Println(index,"首都是",countryCapital[index])
     }
 
     /*查看元素在集合中是否存在 */
-    capital, ok := countryCapital[ "American" ] /*如果确定是真实的,则存在,否则不存在 */
-    /*fmt.Println(capital) */
-    /*fmt.Println(ok) */
+    country := "American"
+    capital, ok := countryCapital[ country ] /*如果确定是真实的,则存在,否则不存在 */
     if (ok) {
-        fmt.Println("American 的首都是", capital)
+        fmt.Println(capital, "的首都是", ok)
     } else {
-        fmt.Println("American 的首都不存在")
+        fmt.Println(country, "的首都不存在")
     }
 
     delete(countryCapital,"Japan")
-
 
     fmt.Println(countryCapital)
 }
