@@ -1,9 +1,9 @@
 package main
 
 import "fmt"
-
+//阶乘
 func main() {
-   fmt.Println(pow(2,-5))
+   fmt.Println(pow(2,5))
 }
 
 
