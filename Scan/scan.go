@@ -8,10 +8,15 @@ import (
 	"time"
 )
 
+const SavePath = "have_save_file.txt"
+
 func main() {
 	var path string
 	fmt.Printf("请输入要扫描的目录:\n")
-	fmt.Scan(&path)
+	_, err := fmt.Scan(&path)
+	if err != nil {
+		return
+	}
 
 	start := time.Now()
 	defer fmt.Println(time.Since(start))
@@ -30,14 +35,23 @@ func main() {
 }
 
 func appendContent(content string) {
-	fd, err := os.OpenFile("a.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	fd, err := os.OpenFile(SavePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		// 打开文件失败处理
 	} else {
-		buf := []byte(content)
-		fd.Write(buf)
+		//buf := []byte(content)
+		//fd.Write(buf)
+		_, err := fd.WriteString(content)
+		if err != nil {
+			return
+		}
 	}
-	defer fd.Close()
+	defer func(fd *os.File) {
+		err := fd.Close()
+		if err != nil {
+
+		}
+	}(fd)
 }
 
 func saveFile(path string, c chan string) {
