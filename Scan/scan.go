@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const SavePath = "have_save_file.txt"
+const SavePath = "/Users/chentao/have_save_file_%s.txt"
 
 func main() {
 	var path string
@@ -35,7 +35,8 @@ func main() {
 }
 
 func appendContent(content string) {
-	fd, err := os.OpenFile(SavePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	filename := fmt.Sprintf(SavePath, time.Now().Format("20060102"))
+	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		// 打开文件失败处理
 	} else {
