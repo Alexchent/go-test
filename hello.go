@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/alexchen/test/Cache"
 	"time"
 )
 
@@ -40,4 +41,8 @@ func main() {
 
 	// 格式化时间
 	fmt.Println(time.Now().Format("20060102"))
+
+	Cache.Set("name", "tony", 0)
+
+	fmt.Println(Cache.Get("name"))
 }
