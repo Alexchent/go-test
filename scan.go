@@ -1,6 +1,6 @@
 package main
 
-import scan "github.com/alexchen/test/Scan"
+import scan "github.com/alexchen/test/ScanService"
 
 func main() {
 	scan.Do()
