@@ -73,3 +73,13 @@ func SAdd(key string, value interface{}) {
 	}
 	return
 }
+
+func SMembers(key string) (val []string) {
+	val, err := Client.SMembers(ctx, key).Result()
+	if err == redis.Nil {
+		fmt.Println("key2 does not exist")
+	} else if err != nil {
+		panic(err)
+	}
+	return
+}

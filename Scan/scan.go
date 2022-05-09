@@ -1,7 +1,8 @@
-package main
+package scan
 
 import (
 	"fmt"
+	"github.com/alexchen/test/Cache"
 	"io/ioutil"
 	"log"
 	"os"
@@ -10,7 +11,19 @@ import (
 
 const SavePath = "/Users/chentao/have_save_file_%s.txt"
 
-func main() {
+//const SavePath = "have_save_file_%s.txt"
+const CacheKey = "have_save_file"
+
+func SaveCache() {
+	members := Cache.SMembers(CacheKey)
+	fmt.Println(members)
+
+	for _, member := range members {
+		AppendContent(member)
+	}
+}
+
+func Do() {
 	var path string
 	fmt.Printf("请输入要扫描的目录:\n")
 	_, err := fmt.Scan(&path)
@@ -27,15 +40,15 @@ func main() {
 	go func() {
 		for {
 			file := <-c
-			appendContent(file)
-			//Cache.SAdd("have_save_file", file)
+			//AppendContent(file)
+			Cache.SAdd(CacheKey, file)
 		}
 	}()
 
-	saveFile(path, c)
+	scanFile(path, c)
 }
 
-func appendContent(content string) {
+func AppendContent(content string) {
 	filename := fmt.Sprintf(SavePath, time.Now().Format("20060102"))
 	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -56,7 +69,7 @@ func appendContent(content string) {
 	}(fd)
 }
 
-func saveFile(path string, c chan string) {
+func scanFile(path string, c chan string) {
 
 	fileInfoList, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -68,7 +81,7 @@ func saveFile(path string, c chan string) {
 			fmt.Println(fileInfoList[i].Name())
 
 			// 开启多个扫描线程，扫描速度将远高于写入速度， 主线程结束时，go线程还没有完成
-			saveFile(path+"/"+fileInfoList[i].Name(), c)
+			scanFile(path+"/"+fileInfoList[i].Name(), c)
 		} else {
 			body := path + "/" + fileInfoList[i].Name() + "\n"
 			// 文件名传入channel内
