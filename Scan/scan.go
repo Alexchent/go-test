@@ -28,6 +28,7 @@ func main() {
 		for {
 			file := <-c
 			appendContent(file)
+			//Cache.SAdd("have_save_file", file)
 		}
 	}()
 
