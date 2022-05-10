@@ -6,12 +6,13 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	path "path/filepath"
 	"time"
 )
 
-const SavePath = "/Users/chentao/have_save_file_%s.txt"
+//const SavePath = "/Users/chentao/have_save_file_%s.txt"
 
-//const SavePath = "have_save_file_%s.txt"
+const SavePath = "have_save_file_%s.txt"
 const CacheKey = "have_save_file"
 
 func SaveCache() {
@@ -79,8 +80,7 @@ func scanFile(filePath string, c chan string) {
 
 	for i := range fileInfoList {
 		if fileInfoList[i].IsDir() {
-			fmt.Println(fileInfoList[i].Name())
-
+			//fmt.Println(fileInfoList[i].Name())
 			// 开启多个扫描线程，扫描速度将远高于写入速度， 主线程结束时，go线程还没有完成
 			scanFile(filePath+"/"+fileInfoList[i].Name(), c)
 		} else {
@@ -89,11 +89,13 @@ func scanFile(filePath string, c chan string) {
 				continue
 			}
 			// 过滤js和torrent文件
-			//baseName := path.Base(fileInfoList[i].Name())
-			//ext := path.Ext(baseName)
-			//if ext != "js" && ext != "torrent" {
-			//	continue
-			//}
+			baseName := path.Base(fileInfoList[i].Name())
+			//fmt.Println("basename=", baseName)
+			ext := path.Ext(baseName)
+			fmt.Println("ext=", ext)
+			if ext == ".js" || ext == ".torrent" {
+				continue
+			}
 			body := filePath + "/" + fileInfoList[i].Name() + "\n"
 			// 文件名传入channel内
 			c <- body
