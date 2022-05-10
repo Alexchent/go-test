@@ -80,7 +80,7 @@ func scanFile(filePath string, c chan string) {
 
 	for i := range fileInfoList {
 		if fileInfoList[i].IsDir() {
-			//fmt.Println(fileInfoList[i].Name())
+			fmt.Println("正在扫描：", fileInfoList[i].Name())
 			// 开启多个扫描线程，扫描速度将远高于写入速度， 主线程结束时，go线程还没有完成
 			scanFile(filePath+"/"+fileInfoList[i].Name(), c)
 		} else {
@@ -90,9 +90,7 @@ func scanFile(filePath string, c chan string) {
 			}
 			// 过滤js和torrent文件
 			baseName := path.Base(fileInfoList[i].Name())
-			//fmt.Println("basename=", baseName)
 			ext := path.Ext(baseName)
-			fmt.Println("ext=", ext)
 			if ext == ".js" || ext == ".torrent" {
 				continue
 			}
