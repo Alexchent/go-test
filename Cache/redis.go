@@ -83,3 +83,13 @@ func SMembers(key string) (val []string) {
 	}
 	return
 }
+
+func SScan(key string, cursor uint64, match string, count int64) (val []string) {
+	val, _, err := Client.SScan(ctx, key, cursor, match, count).Result()
+	if err == redis.Nil {
+		fmt.Println("key2 does not exist")
+	} else if err != nil {
+		panic(err)
+	}
+	return
+}
