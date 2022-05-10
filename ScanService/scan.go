@@ -24,14 +24,7 @@ func SaveCache() {
 	}
 }
 
-func Do() {
-	var path string
-	fmt.Printf("请输入要扫描的目录:\n")
-
-	_, err := fmt.Scan(&path)
-	if err != nil {
-		return
-	}
+func Do(path string) {
 
 	start := time.Now()
 	defer fmt.Println(time.Since(start))
