@@ -116,7 +116,7 @@ func scanFile2(filePath string) {
 			scanFile2(filePath + "/" + fileInfoList[i].Name())
 		} else {
 			// 过滤Mac的.DS_Store文件
-			fmt.Println("发现：", fileInfoList[i].Name())
+
 			if fileInfoList[i].Name() == ".DS_Store" {
 				continue
 			}
@@ -127,8 +127,11 @@ func scanFile2(filePath string) {
 				continue
 			}
 			body := filePath + "/" + fileInfoList[i].Name() + "\n"
-			AppendContent(body)
-			Cache.SAdd(CacheKey, body)
+			res := Cache.SAdd(CacheKey, body)
+			if res == 1 {
+				fmt.Println("发现新的文件：", fileInfoList[i].Name())
+				AppendContent(body)
+			}
 		}
 	}
 	// 本目录扫描完毕

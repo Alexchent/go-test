@@ -66,12 +66,12 @@ func Set(key string, value interface{}, expiration time.Duration) {
 }
 
 // SAdd 集合操作
-func SAdd(key string, value interface{}) {
-	err := Client.SAdd(ctx, key, value).Err()
+func SAdd(key string, value interface{}) int64 {
+	res, err := Client.SAdd(ctx, key, value).Result()
 	if err != nil {
 		panic(err)
 	}
-	return
+	return res
 }
 
 func SMembers(key string) (val []string) {

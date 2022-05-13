@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	scan.Do("/Users/chentao/Downloads/迅雷")
+	scan.Start("/Users/chentao/Downloads/xunlei")
 
 	// 缓存数据持久化到本地
 	//scan.SaveCache()
