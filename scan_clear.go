@@ -12,6 +12,10 @@ func main() {
 	val := Cache.SMembers(key)
 
 	for _, v := range val {
+		//fmt.Println(v)
+		//newv := strings.TrimRight(v, "\n")
+		//fmt.Println(newv)
+		//return
 		if strings.HasSuffix(v, "js") || strings.HasSuffix(v, "torrent") {
 			fmt.Println(v)
 			Cache.SRem(key, v)
