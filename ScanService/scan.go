@@ -126,11 +126,11 @@ func scanFile2(filePath string) {
 			if ext == ".js" || ext == ".torrent" {
 				continue
 			}
-			body := filePath + "/" + fileInfoList[i].Name() + "\n"
+			body := filePath + "/" + fileInfoList[i].Name()
 			res := Cache.SAdd(CacheKey, body)
 			if res == 1 {
 				fmt.Println("发现新的文件：", fileInfoList[i].Name())
-				AppendContent(body)
+				AppendContent(body + "\n")
 			}
 		}
 	}

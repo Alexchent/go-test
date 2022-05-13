@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alexchen/test/Cache"
+	"strings"
 )
 
 func main() {
@@ -13,10 +14,17 @@ func main() {
 	if err != nil {
 		return
 	}
-	match := "*" + path + "*"
-	res := Cache.SScan("have_save_file",0, match, 0)
-	fmt.Println(res)
+	res := Cache.SMembers("have_save_file")
+	for _, val := range res {
+		if strings.Contains(val, path) {
+			fmt.Println(val)
+		}
+	}
 
-	res2 := Cache.SScan("laravel_database_files",0, match, 0)
-	fmt.Println(res2)
+	res2 := Cache.SMembers("laravel_database_files")
+	for _, val := range res2 {
+		if strings.Contains(val, path) {
+			fmt.Println(val)
+		}
+	}
 }
