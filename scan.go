@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	scan.Do(path)
+	scan.Start(path)
 
 	// 缓存数据持久化到本地
 	//scan.SaveCache()

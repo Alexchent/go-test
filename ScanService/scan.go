@@ -34,13 +34,22 @@ func Do(path string) {
 
 	go func() {
 		for {
-			file := <-c
+			file := <-c //阻塞直到取到数据
 			AppendContent(file)
 			Cache.SAdd(CacheKey, file)
 		}
 	}()
 
+	// 注意点 主程必须在go线程后结束
 	scanFile(path, c)
+}
+
+// Start 单线程处理
+func Start(path string) {
+	start := time.Now()
+	defer fmt.Println(time.Since(start))
+
+	scanFile2(path)
 }
 
 func AppendContent(content string) {
@@ -65,19 +74,19 @@ func AppendContent(content string) {
 }
 
 func scanFile(filePath string, c chan string) {
-
 	fileInfoList, err := ioutil.ReadDir(filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	fmt.Println("正在扫描：", filePath)
 	for i := range fileInfoList {
 		if fileInfoList[i].IsDir() {
-			fmt.Println("正在扫描：", fileInfoList[i].Name())
+			//fmt.Println("正在扫描：", fileInfoList[i].Name())
 			// 开启多个扫描线程，扫描速度将远高于写入速度， 主线程结束时，go线程还没有完成
 			scanFile(filePath+"/"+fileInfoList[i].Name(), c)
 		} else {
 			// 过滤Mac的.DS_Store文件
+			fmt.Println("发现文件：：", fileInfoList[i].Name())
 			if fileInfoList[i].Name() == ".DS_Store" {
 				continue
 			}
@@ -92,4 +101,35 @@ func scanFile(filePath string, c chan string) {
 			c <- body
 		}
 	}
+
+	// 本目录扫描完毕
+}
+
+func scanFile2(filePath string) {
+	fileInfoList, err := ioutil.ReadDir(filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("正在扫描：", filePath)
+	for i := range fileInfoList {
+		if fileInfoList[i].IsDir() {
+			scanFile2(filePath + "/" + fileInfoList[i].Name())
+		} else {
+			// 过滤Mac的.DS_Store文件
+			fmt.Println("发现文件：：", fileInfoList[i].Name())
+			if fileInfoList[i].Name() == ".DS_Store" {
+				continue
+			}
+			// 过滤js和torrent文件
+			baseName := path.Base(fileInfoList[i].Name())
+			ext := path.Ext(baseName)
+			if ext == ".js" || ext == ".torrent" {
+				continue
+			}
+			body := filePath + "/" + fileInfoList[i].Name() + "\n"
+			AppendContent(body)
+			Cache.SAdd(CacheKey, body)
+		}
+	}
+	// 本目录扫描完毕
 }
