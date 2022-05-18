@@ -3,6 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/alexchen/test/Cache"
+	scan "github.com/alexchen/test/ScanService"
 	"io"
 	"os"
 	"strings"
@@ -21,7 +23,12 @@ func main() {
 		if err != nil && io.EOF == err {
 			break
 		}
-		fmt.Println(strings.Trim(line, "\n"))
-		//Cache.SAdd("have_save_file", line)
+		data := strings.Trim(line, "\n")
+
+		if data != "" {
+			fmt.Println(data)
+			// 写入导redis内
+			Cache.SAdd(scan.CacheKey, data)
+		}
 	}
 }
