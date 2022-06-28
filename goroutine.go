@@ -9,10 +9,12 @@ func main() {
 	s := []int {7,2,8,-9,4,0}
 	//分治思想
     c := make(chan int)
+    //println(len(s))
     //开启协程
     go sum(s[:len(s)/2], c)
     go sum(s[len(s)/2:], c)
-    x, y := <-c, <-c //从通道中取数据
+
+    x, y := <-c, <-c //从通道中取数据  阻塞等待通道中的数据
 
     fmt.Println(x, y, x+y)
 }

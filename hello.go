@@ -10,10 +10,6 @@ var name, gen string = "chentao", "男"
 var age int = 28
 
 func main() {
-	/* 这是我的第一个简单的程序 */
-	fmt.Println("Hello, World!")
-	//每行代表一个语句结束
-	fmt.Println("第二行")
 	//字符串通过+连接。   这一点与javascript一样
 	fmt.Println("who is" + "chentao")
 
@@ -41,6 +37,7 @@ func main() {
 
 	// 格式化时间
 	fmt.Println(time.Now().Format("20060102"))
+
 
 	Cache.Set("name", "tony", 0)
 
