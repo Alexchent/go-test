@@ -33,7 +33,7 @@ func main() {
 	//声明的变量必须使用，否则会报错 declared and not used
 	//j := 56
 	//全局变量可以不使用
-	fmt.Println(name)
+	fmt.Println(name, age, gen)
 
 	// 格式化时间
 	fmt.Println(time.Now().Format("20060102"))
