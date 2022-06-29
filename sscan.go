@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexchen/test/Cache"
+	"github.com/alexchen/test/Cache/redis"
 	"strings"
 )
 
@@ -36,7 +36,7 @@ func main() {
 }
 
 func SearchFromRedisSet(key, path string) {
-	res := Cache.SMembers(key)
+	res := redis.SMembers(key)
 	for _, val := range res {
 		if strings.Contains(strings.ToLower(val), path) {
 			fmt.Println(val)

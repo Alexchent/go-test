@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/alexchen/test/Cache"
+	"github.com/alexchen/test/Cache/redis"
 	scan "github.com/alexchen/test/ScanService"
 	"io"
 	"os"
@@ -28,7 +28,7 @@ func main() {
 		if data != "" {
 			fmt.Println(data)
 			// 写入导redis内
-			Cache.SAdd(scan.CacheKey, data)
+			redis.SAdd(scan.CacheKey, data)
 		}
 	}
 }

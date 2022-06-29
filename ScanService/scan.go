@@ -2,7 +2,7 @@ package scan
 
 import (
 	"fmt"
-	"github.com/alexchen/test/Cache"
+	"github.com/alexchen/test/Cache/redis"
 	"io/ioutil"
 	"log"
 	"os"
@@ -17,7 +17,7 @@ const SavePath = "have_save_file_%s.txt"
 const CacheKey = "have_save_file"
 
 func SaveCache() {
-	members := Cache.SMembers(CacheKey)
+	members := redis.SMembers(CacheKey)
 	fmt.Println(members)
 
 	for _, member := range members {
@@ -39,7 +39,7 @@ func Do(path string) {
 		for {
 			file := <-c //阻塞直到取到数据
 			AppendContent(file)
-			Cache.SAdd(CacheKey, file)
+			redis.SAdd(CacheKey, file)
 		}
 	}()
 
@@ -139,7 +139,7 @@ func scanFile2(filePath string) {
 			}
 
 			body := filePath + "/" + fileInfoList[i].Name()
-			res := Cache.SAdd(CacheKey, body)
+			res := redis.SAdd(CacheKey, body)
 			if res == 1 {
 				fmt.Println("发现新的文件：", fileInfoList[i].Name())
 				AppendContent(body + "\n")

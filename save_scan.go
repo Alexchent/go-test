@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexchen/test/Cache"
+	"github.com/alexchen/test/Cache/redis"
 	file "github.com/alexchen/test/File"
 	scan "github.com/alexchen/test/ScanService"
 	"strings"
@@ -16,13 +16,13 @@ func main() {
 
 	var data []string
 	filename := fmt.Sprintf("./log/"+scan.SavePath, time.Now().Format("060102"))
-	data = Cache.SMembers("have_save_file")
+	data = redis.SMembers("have_save_file")
 	for _, v := range data {
 		//scan.AppendContent(strings.TrimRight(v, "\n") + "\n")
 		file.AppendContent(filename, strings.Trim(v, "\n")+"\n")
 	}
 
-	data = Cache.SMembers("laravel_database_files")
+	data = redis.SMembers("laravel_database_files")
 	for _, v := range data {
 		file.AppendContent(filename, v+"\n")
 	}
