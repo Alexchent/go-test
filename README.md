@@ -16,6 +16,7 @@
 - [time](./wiki/pkg/time.go)
 - [fmt.Scan 接收输入](./wiki/pkg/01-fmt.Scan接收输入信息.go)
 - [os.open 按行读取文件](./wiki/pkg/os.Open-按行读取文件.go)
+- [json 转化map和struct](./wiki/23-json-map.go)
 
 ## 试用功能
 1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
