@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	path "path/filepath"
+	"sync"
 	"time"
 )
 
@@ -29,6 +30,8 @@ func Do(path string) {
 	start := time.Now()
 	defer fmt.Println(time.Since(start))
 
+	var wg sync.WaitGroup
+
 	c := make(chan string)
 	defer close(c)
 
@@ -40,8 +43,12 @@ func Do(path string) {
 		}
 	}()
 
+	wg.Add(1)
+	scanFile(path, c, &wg)
+
 	// 注意点 主程必须在go线程后结束
-	scanFile(path, c)
+	wg.Wait() // 等待所有goroutine结束
+	fmt.Println("finish")
 }
 
 // Start 单线程处理
@@ -73,7 +80,9 @@ func AppendContent(content string) {
 	}(fd)
 }
 
-func scanFile(filePath string, c chan string) {
+func scanFile(filePath string, c chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
 	fileInfoList, err := ioutil.ReadDir(filePath)
 	if err != nil {
 		log.Fatal(err)
@@ -83,7 +92,8 @@ func scanFile(filePath string, c chan string) {
 		if fileInfoList[i].IsDir() {
 			//fmt.Println("正在扫描：", fileInfoList[i].Name())
 			// 开启多个扫描线程，扫描速度将远高于写入速度， 主线程结束时，go线程还没有完成
-			scanFile(filePath+"/"+fileInfoList[i].Name(), c)
+			wg.Add(1)
+			go scanFile(filePath+"/"+fileInfoList[i].Name(), c, wg)
 		} else {
 			// 过滤Mac的.DS_Store文件
 			fmt.Println("发现文件：：", fileInfoList[i].Name())
@@ -118,7 +128,6 @@ func scanFile2(filePath string) {
 			scanFile2(filePath + "/" + fileInfoList[i].Name())
 		} else {
 			// 过滤Mac的.DS_Store文件
-
 			if fileInfoList[i].Name() == ".DS_Store" {
 				continue
 			}
@@ -128,6 +137,7 @@ func scanFile2(filePath string) {
 			if ext == ".js" || ext == ".torrent" {
 				continue
 			}
+
 			body := filePath + "/" + fileInfoList[i].Name()
 			res := Cache.SAdd(CacheKey, body)
 			if res == 1 {

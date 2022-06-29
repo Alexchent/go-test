@@ -13,10 +13,6 @@
 ### 三、将历史扫描结果保存到文件 `have_save_file.txt` 中
 `go run save_scan.go`
 
-## 读取文件
-
-## 写文件
-
 
 
 
