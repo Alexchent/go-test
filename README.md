@@ -14,6 +14,7 @@
 ### 常用内置包
 - [time 实现延迟的三种方式](./wiki/pkg/time.go)
 - [strconv](./wiki/pkg/strconv-字符串转换.go)
+- [rand 生成随机数](./wiki/pkg/rand.go)
 - [fmt.Scan 接收输入](./wiki/pkg/fmt.Scan接收输入信息.go)
 - [os.open 按行读取文件](./wiki/pkg/os.Open-按行读取文件.go)
 - [json、map 之间的转化](./wiki/pkg/json-map.go)
