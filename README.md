@@ -22,8 +22,13 @@
 #### 接收命令参数的两种方式
 - [flag](./wiki/pkg/flag-获取命令行参数.go)
 - [os.Args](./wiki/pkg/os.Args-获取命令行参数.go)
-#### 保障所有 goroutine 完整执行的技巧
+
+## 高级
+### 保障所有 goroutine 完整执行的技巧
 - [sync.Group]()
+
+## 踩坑
+- [变量赋值](./wiki/01-变量声明中的坑.go)
 
 ## 试用功能
 1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
