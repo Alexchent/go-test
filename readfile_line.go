@@ -1,10 +1,9 @@
 package main
 
+// 按行读取文件内容
 import (
 	"bufio"
 	"fmt"
-	"github.com/alexchen/test/Cache/redis"
-	scan "github.com/alexchen/test/ScanService"
 	"io"
 	"os"
 	"strings"
@@ -28,7 +27,7 @@ func main() {
 		if data != "" {
 			fmt.Println(data)
 			// 写入导redis内
-			redis.SAdd(scan.CacheKey, data)
+			//redis.SAdd("read-line", data)
 		}
 	}
 }
