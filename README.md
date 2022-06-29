@@ -23,6 +23,7 @@
 - [flag 接收命令行参数](./wiki/pkg/flag.go)
 - [time](./wiki/pkg/time.go)
 - [fmt.Scan 接收输入](./wiki/pkg/01-fmt.Scan接收输入信息.go)
+- [os.open 按行读取文件](./wiki/pkg/os.Open-按行读取文件.go)
 
 
 
