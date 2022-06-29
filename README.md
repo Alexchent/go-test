@@ -13,6 +13,7 @@
 
 ### 常用内置包
 - [time](./wiki/pkg/time.go)
+- [strconv](./wiki/pkg/strconv-字符串转换.go)
 - [fmt.Scan 接收输入](./wiki/pkg/fmt.Scan接收输入信息.go)
 - [os.open 按行读取文件](./wiki/pkg/os.Open-按行读取文件.go)
 - [json、map 之间的转化](./wiki/pkg/json-map.go)
@@ -20,6 +21,8 @@
 #### 接收命令参数的两种方式
 - [flag](./wiki/pkg/flag-获取命令行参数.go)
 - [os.Args](./wiki/pkg/os.Args-获取命令行参数.go)
+#### 保障所有 goroutine 完整执行的技巧
+- [sync.Group]()
 
 ## 试用功能
 1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
