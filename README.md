@@ -12,7 +12,7 @@
 - [range 可以迭代 array, slice, map, chan](./wiki/range.go)
 
 ### 常用内置包
-- [time](./wiki/pkg/time.go)
+- [time 实现延迟的三种方式](./wiki/pkg/time.go)
 - [strconv](./wiki/pkg/strconv-字符串转换.go)
 - [fmt.Scan 接收输入](./wiki/pkg/fmt.Scan接收输入信息.go)
 - [os.open 按行读取文件](./wiki/pkg/os.Open-按行读取文件.go)

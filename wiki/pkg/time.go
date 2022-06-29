@@ -24,4 +24,15 @@ func main() {
 	fmt.Println("week：", time.Monday) // Monday
 
 	fmt.Println("month：", time.May) // Sunday
+
+	// 实现延时功能的3种方式
+	timer := time.NewTimer(1 * time.Second)
+	<-timer.C //阻塞等到
+	fmt.Println("时间到:", time.Now())
+
+	<-time.After(2 * time.Second)
+	fmt.Println(time.Now())
+
+	time.Sleep(2 * time.Second)
+	fmt.Println(time.Now())
 }
