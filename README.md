@@ -9,6 +9,7 @@
 - [闭包](./wiki/cluse.go)
 - [interface](./wiki/interface.go)
 - [goto](./wiki/goto.go)
+- [range 可以迭代 array, slice, map, chan](./wiki/range.go)
 
 ### 常用内置包
 - [flag 接收命令行参数](./wiki/pkg/flag.go)
