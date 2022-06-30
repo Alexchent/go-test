@@ -3,10 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	var numbers []int
+	var numbers []int //var 声明 slice，值为nil
 	printSlice(numbers)
+	fmt.Println(numbers == nil)
 	//len=0 cap=0 slice=[]
-
 	/* 允许追加空切片 */
 	numbers = append(numbers, 0)
 	printSlice(numbers)
