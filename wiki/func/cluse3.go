@@ -4,9 +4,9 @@ import "fmt"
 
 func main() {
 	add_func := add(1, 2)
-	fmt.Println(add_func(1, 1))
-	fmt.Println(add_func(0, 0))
-	fmt.Println(add_func(2, 2))
+	fmt.Println(add_func(1, 1)) // 1,3,2
+	fmt.Println(add_func(0, 0)) // 2,3,0
+	fmt.Println(add_func(2, 2)) // 3,3,4
 }
 
 // 闭包使用方法
