@@ -1,4 +1,6 @@
 # go 实验室
+## [快速入门](./quickstart.md)
+> https://golang.google.cn/doc/tutorial/getting-started
 
 ## 接入redis
 
@@ -6,7 +8,7 @@
 
 ## 知识点
 - [位运算](./wiki/01-位运算.go)
-- [闭包](./wiki/cluse.go)
+- [闭包](./wiki/func/cluse.go)
 - [interface](./wiki/interface.go)
 - [goto](./wiki/goto.go)
 - [range 可以迭代 array, slice, map, chan](./wiki/range.go)
@@ -29,6 +31,12 @@
 
 ## 踩坑
 - [变量赋值](./wiki/01-变量声明中的坑.go)
+
+## 1.18版本新特性
+
+### 1. [generic 泛型](./wiki/func/generics.go)
+函数的参数和返回值支持泛型
+### 2. [go work 工作空间模式](./workspace.md)
 
 ## 试用功能
 1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
