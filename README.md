@@ -40,11 +40,12 @@
 函数的参数和返回值支持泛型
 ### 2. [go work 工作空间模式](./workspace.md)
 
-## 试用功能
+## 实用功能
 1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
 2. 固定扫描 `Download/xunlei` 目录下的所有文件 `go run scan_download.go`
 3. 将历史扫描结果保存到文件 `have_save_file.txt` 中 `go run save_scan.go`
 
 
-
+## 实验
+ - [websocket](./gin-ws/websocket.md)
 
