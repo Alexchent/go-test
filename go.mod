@@ -1,4 +1,4 @@
-module github.com/alexchen/test
+module github.com/alexchen/go_test
 
 go 1.18
 

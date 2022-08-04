@@ -2,7 +2,7 @@ package scan
 
 import (
 	"fmt"
-	"github.com/alexchen/test/Cache/redis"
+	"github.com/alexchen/go_test/Cache/redis"
 	"io/ioutil"
 	"log"
 	"os"

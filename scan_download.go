@@ -1,7 +1,7 @@
 package main
 
 import (
-	scan "github.com/alexchen/test/ScanService"
+	scan "github.com/alexchen/go_test/ScanService"
 )
 
 func main() {

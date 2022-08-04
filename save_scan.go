@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexchen/test/Cache/redis"
-	file "github.com/alexchen/test/File"
-	scan "github.com/alexchen/test/ScanService"
+	"github.com/alexchen/go_test/Cache/redis"
+	file "github.com/alexchen/go_test/File"
+	scan "github.com/alexchen/go_test/ScanService"
 	"strings"
 	"time"
 )

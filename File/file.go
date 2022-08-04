@@ -3,8 +3,8 @@ package file
 import (
 	"bufio"
 	"fmt"
-	"github.com/alexchen/test/Cache/redis"
-	scan "github.com/alexchen/test/ScanService"
+	"github.com/alexchen/go_test/Cache/redis"
+	scan "github.com/alexchen/go_test/ScanService"
 	"io"
 	"os"
 	"strings"
