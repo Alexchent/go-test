@@ -22,7 +22,8 @@
 - [json、map 之间的转化](./wiki/pkg/json-map.go)
 - [json、struct 之间的转化](./wiki/pkg/json-struct.go)
 - [%v ,%+v, %#v 输出结构体时有什么区别](./wiki/pkg/fmt.Printf.go)
-- 
+
+
 #### 接收命令参数的两种方式
 - [flag](./wiki/pkg/flag-获取命令行参数.go)
 - [os.Args](./wiki/pkg/os.Args-获取命令行参数.go)
@@ -33,6 +34,7 @@
 
 ## 踩坑
 - [变量赋值](./wiki/01-变量声明中的坑.go)
+- [data race](./wiki/data-race.go)
 
 ## 1.18版本新特性
 
