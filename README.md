@@ -51,3 +51,6 @@
 ## 实验
  - [websocket](./gin-ws/websocket.md)
 
+
+参考文章：
+> [为什么你不应该接收race代码](https://xargin.com/why-you-should-reject-racy-code/)
