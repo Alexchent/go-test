@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/alexchen/go_test/Cache/redis"
-	scan "github.com/alexchen/go_test/ScanService"
+	"github.com/alexchen/go_test/scan/ScanService"
 	"io"
 	"os"
 	"strings"
