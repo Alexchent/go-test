@@ -35,7 +35,9 @@ func Do(path string) {
 	c := make(chan string)
 	defer close(c)
 
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		for {
 			file := <-c //阻塞直到取到数据
 			AppendContent(file)
@@ -43,7 +45,6 @@ func Do(path string) {
 		}
 	}()
 
-	wg.Add(1)
 	scanFile(path, c, &wg)
 
 	// 注意点 主程必须在go线程后结束
