@@ -16,10 +16,10 @@ func main() {
 
 	var data []string
 	filename := fmt.Sprintf("./log/"+scan.SavePath, time.Now().Format("060102"))
+
 	data = redis.SMembers("have_save_file")
 	for _, v := range data {
-		//scan.AppendContent(strings.TrimRight(v, "\n") + "\n")
-		file.AppendContent(filename, strings.Trim(v, "\n")+"\n")
+		file.AppendContent(filename, strings.Trim(v, "\n"))
 	}
 
 	data = redis.SMembers("laravel_database_files")

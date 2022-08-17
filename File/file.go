@@ -1,16 +1,12 @@
-package file
+package myFile
 
 import (
 	"bufio"
 	"fmt"
-	"github.com/alexchen/go_test/Cache/redis"
-	"github.com/alexchen/go_test/scan/ScanService"
 	"io"
 	"os"
 	"strings"
 )
-
-const SavePath = "have_save_file_%s.txt"
 
 func AppendContent(filename, content string) {
 	//filename := fmt.Sprintf(SavePath, time.Now().Format("060102"))
@@ -20,7 +16,7 @@ func AppendContent(filename, content string) {
 	} else {
 		//buf := []byte(content)
 		//fd.Write(buf)
-		_, err := fd.WriteString(content)
+		_, err := fd.WriteString(content + "\n")
 		if err != nil {
 			return
 		}
@@ -53,7 +49,7 @@ func readString(filename string) {
 		if data != "" {
 			fmt.Println(data)
 			// 写入导redis内
-			redis.SAdd(scan.CacheKey, data)
+			//redis.SAdd(scan.CacheKey, data)
 		}
 	}
 }
