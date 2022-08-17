@@ -14,16 +14,21 @@ func main() {
 		return
 	}
 	path = strings.ToLower(path)
-	SearchFromRedisSet("have_save_file", path)
-
-	SearchFromRedisSet("laravel_database_files", path)
+	count := 0
+	count += SearchFromRedisSet("have_save_file", path)
+	count += SearchFromRedisSet("laravel_database_files", path)
+	res := fmt.Sprintf("本次扫描发现 %d 个文件", count)
+	fmt.Println(res)
 }
 
-func SearchFromRedisSet(key, path string) {
+func SearchFromRedisSet(key, path string) (count int) {
 	res := redis.SMembers(key)
+	count = 0
 	for _, val := range res {
 		if strings.Contains(strings.ToLower(val), path) {
 			fmt.Println(val)
+			count++
 		}
 	}
+	return
 }
