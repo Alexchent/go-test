@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"strings"
 )
@@ -13,21 +14,14 @@ func AppendContent(filename, content string) {
 	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		// 打开文件失败处理
+		log.Fatal(err.Error())
 	} else {
 		//buf := []byte(content)
 		//fd.Write(buf)
-		_, err := fd.WriteString(content + "\n")
-		if err != nil {
-			return
-		}
+		fd.WriteString(content + "\n")
 	}
 
-	defer func(fd *os.File) {
-		err := fd.Close()
-		if err != nil {
-
-		}
-	}(fd)
+	defer fd.Close()
 }
 
 func readString(filename string) {
