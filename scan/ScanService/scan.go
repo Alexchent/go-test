@@ -40,7 +40,7 @@ func Do(path string) {
 		defer wg.Done()
 		for {
 			file := <-c //阻塞直到取到数据
-			AppendContent(file)
+			AppendContent(file + "\n")
 			redis.SAdd(CacheKey, file)
 		}
 	}()
@@ -90,30 +90,35 @@ func scanFile(filePath string, c chan string, wg *sync.WaitGroup) {
 	}
 	fmt.Println("正在扫描：", filePath)
 	for i := range fileInfoList {
+
+		fileName := fileInfoList[i].Name()
+
 		if fileInfoList[i].IsDir() {
-			//fmt.Println("正在扫描：", fileInfoList[i].Name())
 			// 开启多个扫描线程，扫描速度将远高于写入速度， 主线程结束时，go线程还没有完成
 			wg.Add(1)
-			go scanFile(filePath+"/"+fileInfoList[i].Name(), c, wg)
+			go scanFile(filePath+"/"+fileName, c, wg)
 		} else {
 			// 过滤Mac的.DS_Store文件
-			fmt.Println("发现文件：：", fileInfoList[i].Name())
 			if fileInfoList[i].Name() == ".DS_Store" {
 				continue
 			}
 			// 过滤js和torrent文件
-			baseName := path.Base(fileInfoList[i].Name())
-			ext := path.Ext(baseName)
+			baseName := path.Base(fileName) // 获取文件名
+			ext := path.Ext(baseName)       // 获取文件后缀
 			if ext == ".js" || ext == ".torrent" {
 				continue
 			}
-			body := filePath + "/" + fileInfoList[i].Name() + "\n"
 			// 文件名传入channel内
+			body := filePath + "/" + fileName
 			c <- body
 		}
 	}
 
 	// 本目录扫描完毕
+}
+
+func filterByBaseName(baseName string) {
+
 }
 
 func scanFile2(filePath string) {
