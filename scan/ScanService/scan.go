@@ -117,10 +117,7 @@ func scanFile(filePath string, c chan string, wg *sync.WaitGroup) {
 	// 本目录扫描完毕
 }
 
-func filterByBaseName(baseName string) {
-
-}
-
+// scanFile2 单线程扫描
 func scanFile2(filePath string) {
 	fileInfoList, err := ioutil.ReadDir(filePath)
 	if err != nil {
@@ -128,26 +125,28 @@ func scanFile2(filePath string) {
 		fmt.Println(err)
 		return
 	}
+
 	fmt.Println("正在扫描：", filePath)
+
 	for i := range fileInfoList {
+		fileName := fileInfoList[i].Name()
 		if fileInfoList[i].IsDir() {
-			scanFile2(filePath + "/" + fileInfoList[i].Name())
+			scanFile2(filePath + "/" + fileName)
 		} else {
 			// 过滤Mac的.DS_Store文件
 			if fileInfoList[i].Name() == ".DS_Store" {
 				continue
 			}
 			// 过滤js和torrent文件
-			baseName := path.Base(fileInfoList[i].Name())
+			baseName := path.Base(fileName)
 			ext := path.Ext(baseName)
 			if ext == ".js" || ext == ".torrent" {
 				continue
 			}
 
-			body := filePath + "/" + fileInfoList[i].Name()
-			res := redis.SAdd(CacheKey, body)
-			if res == 1 {
-				fmt.Println("发现新的文件：", fileInfoList[i].Name())
+			body := filePath + "/" + fileName
+			if redis.SAdd(CacheKey, body) == 1 {
+				fmt.Println("发现新的文件：", fileName)
 				AppendContent(body + "\n")
 			}
 		}
