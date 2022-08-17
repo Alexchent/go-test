@@ -15,10 +15,11 @@ func main() {
 	defer fmt.Println(time.Since(start))
 
 	var data []string
-	filename := fmt.Sprintf("./log/"+scan.SavePath, time.Now().Format("060102"))
+	filename := fmt.Sprintf(scan.SavePath, time.Now().Format("060102"))
 
 	data = redis.SMembers("have_save_file")
 	for _, v := range data {
+		fmt.Println(v)
 		file.AppendContent(filename, strings.Trim(v, "\n"))
 	}
 
