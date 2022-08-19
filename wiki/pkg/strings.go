@@ -30,4 +30,7 @@ func main() {
 
 	// Fields 清除字符串中的空格，并按空格分割返回slice
 	fmt.Println(strings.Fields("   hello, world   "))
+
+	// HasSuffix 判断字符串是否以某一个后缀结尾
+	fmt.Println(strings.HasSuffix("xxxxx.jpg", "jpg"))
 }
