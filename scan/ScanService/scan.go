@@ -122,8 +122,8 @@ func scanFile2(filePath string) {
 			content := filePath + "/" + fileName
 			if redis.SAdd(CacheKey, content) == 1 {
 				fmt.Println("发现新的文件：", fileName)
-				filename := fmt.Sprintf(SavePath, time.Now().Format("060102"))
-				myFile.AppendContent(filename, content)
+				//filename := fmt.Sprintf(SavePath, time.Now().Format("060102"))
+				myFile.AppendContent("have_save_file.txt", content)
 			}
 		}
 	}
