@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/alexchen/go_test/impl"
+	"github.com/alexchen/go_test/gin-ws/impl"
 	"github.com/gorilla/websocket"
 	"net/http"
 	"time"
