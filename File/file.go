@@ -24,6 +24,20 @@ func AppendContent(filename, content string) {
 	defer fd.Close()
 }
 
+// CreateDateDir basePath是固定目录路径
+func CreateDateDir(folderPath string) (dirPath string) {
+	//folderName := time.Now().Format("2006-01-02")
+	//folderPath := filepath.Join(basePath, folderName)
+	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
+		// 必须分成两步
+		// 先创建文件夹
+		os.MkdirAll(folderPath, os.ModePerm)
+		// 再修改权限
+		os.Chmod(folderPath, 0777)
+	}
+	return folderPath
+}
+
 func readString(filename string) {
 	//f, err := os.Open("/Users/chentao/Downloads/down.txt")
 	f, err := os.Open(filename)
