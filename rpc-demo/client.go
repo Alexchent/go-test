@@ -6,7 +6,6 @@ import (
 	"net/rpc"
 )
 
-// 传的参数
 type Params struct {
 	Width, Height int
 }

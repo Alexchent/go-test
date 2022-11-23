@@ -49,7 +49,9 @@
 
 
 ## 实验
- - [websocket](./gin-ws/websocket.md)
+### [websocket](./gin-ws/websocket.md)
+### [net/rpc](./rpc-demo)
+golang官方的`net/rpc`库，使用`encoding/gob`进行编解码，由于其他语言不支持gob编解码方式，所以使用net/rpc库实现的RPC方法**没办法进行跨语言调用**
 
 
 参考文章：
