@@ -42,4 +42,11 @@ func main() {
 		log.Fatal(err4)
 	}
 	fmt.Println(ret2)
+
+	ret3 := ""
+	err = conn.Call("Person.Wife", PersonParams{"张翠山"}, &ret3)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(ret3)
 }

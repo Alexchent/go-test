@@ -14,7 +14,7 @@ import (
 const PATH = "/Users/chentao/Downloads/pachong/"
 
 func main() {
-	begin := 940365
+	begin := 940366
 	//host := "https://www.qixiashu.com/yue/62/62422/" // 武侠之无尽恶人 133733
 	host := "https://www.qixiashu.com/yue/465/465479/" // 影视世界从攻略女主开始 939847
 	//dir := "武侠之无尽恶人"
@@ -32,11 +32,11 @@ func StartWork(begin int, host, dir string) {
 	file.CreateDateDir(saveDir)
 	fmt.Println(saveDir)
 	for begin < end {
-		time.Sleep(time.Second * 10) // 限制爬虫的速率
 		url = host + strconv.Itoa(begin) + ".html"
-		getContent(url, saveDir)
 		fmt.Println(url)
+		getContent(url, saveDir)
 		begin++
+		time.Sleep(time.Second * 10) // 限制爬虫的速率
 	}
 }
 
