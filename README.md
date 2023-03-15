@@ -1,5 +1,4 @@
 # go 实验室
-## [快速入门](./quickstart.md)
 > https://golang.google.cn/doc/tutorial/getting-started
 
 ## 接入redis
@@ -23,6 +22,8 @@
 - [json、struct 之间的转化](./wiki/pkg/json-struct.go)
 - [%v ,%+v, %#v 输出结构体时有什么区别](./wiki/pkg/fmt.Printf.go)
 
+## 使用第三方包
+- [配置文件操作 viper](https://github.com/spf13/viper) 
 
 #### 接收命令参数的两种方式
 - [flag](./wiki/pkg/flag-获取命令行参数.go)

@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	viper.SetConfigFile("./etc/order.ini")
-	err := viper.ReadInConfig() // 读取配置信息
-	if err != nil {             // 读取配置信息失败
+	viper.SetConfigFile("etc/order.ini") // 执行 `go run` 的相对路径
+	err := viper.ReadInConfig()          // 读取配置信息
+	if err != nil {                      // 读取配置信息失败
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 	fmt.Println(viper.AllKeys())

@@ -8,8 +8,8 @@ import (
 
 func main() {
 	//viper.SetConfigFile("./etc/order.yaml") // 指定配置文件
-	viper.SetConfigName("order")  // 配置文件名
-	viper.AddConfigPath("./etc/") // 指定查找配置文件的路径
+	viper.SetConfigName("order") // 配置文件名
+	viper.AddConfigPath("etc/")  // 指定查找配置文件的路径   相对路径是执行 `go run` 的路径，因此最好设置成绝对路径
 	viper.SetConfigType("yaml")
 	err := viper.ReadInConfig() // 读取配置信息
 	if err != nil {             // 读取配置信息失败
