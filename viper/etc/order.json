@@ -1,0 +1,8 @@
+{
+  "version": 1.0,
+  "name": "order",
+  "host": "123.0.0.1",
+  "port": 8080,
+  "mode": "test",
+  "secret_file": "/Users/chentao/go/src/viper-demo/secret/secret.yaml"
+}
