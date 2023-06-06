@@ -8,4 +8,6 @@ func main() {
 		fmt.Println("recovered:", recover())
 	}()
 	panic("not good")
+
+	fmt.Println("hello world")
 }

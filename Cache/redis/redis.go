@@ -35,6 +35,14 @@ func Get(key string) (val string) {
 	return
 }
 
+func GetToStruct(key string) {
+	var value interface{}
+	err := Client.Get(context.Background(), key).Scan(value)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func Set(key string, value interface{}, expiration time.Duration) {
 	err := Client.Set(ctx, key, value, expiration).Err()
 	if err != nil {

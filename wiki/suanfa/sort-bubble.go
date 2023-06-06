@@ -1,15 +1,4 @@
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	//var arrKeyValue = [5]string{3: "Chris", 4: "Ron"}
-	a := []int{2, 3, 1, 6, 8, 7, 4, 5}
-	SortPop(&a)
-	fmt.Println(a)
-}
+package sunfa
 
 // SortPop 冒泡排序 按引用传递
 func SortPop(arr2 *[]int) {
