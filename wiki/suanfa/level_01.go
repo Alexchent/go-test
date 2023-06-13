@@ -16,3 +16,19 @@ func Fibonacci(n int) []int {
 
 	return sequence
 }
+
+var factorialCache = map[int]int{}
+
+func Factorial(n int) int {
+	if n == 0 {
+		return 1
+	}
+
+	if result, ok := factorialCache[n]; ok {
+		return result
+	}
+
+	result := n * Factorial(n-1)
+	factorialCache[n] = result
+	return result
+}

@@ -1,6 +1,7 @@
 package sunfa
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -29,5 +30,14 @@ func TestSortPop(t *testing.T) {
 	SortPop(&a)
 	if !reflect.DeepEqual(a, want) {
 		t.Errorf("a = %#v, want %#v", a, want)
+	}
+}
+
+func TestFactorial(t *testing.T) {
+	res := Factorial(4)
+	fmt.Println(res)
+	want := 24
+	if res != want {
+		t.Errorf("res = %#v, want %#v", res, want)
 	}
 }
