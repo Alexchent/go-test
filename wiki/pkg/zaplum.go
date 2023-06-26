@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"encoding/json"
 	"fmt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -14,8 +15,8 @@ var testdata string
 func main() {
 	EncoderConfig := zapcore.EncoderConfig{
 		MessageKey:          "msg",
-		LevelKey:            "l",
-		TimeKey:             "t",
+		LevelKey:            "",
+		TimeKey:             "",
 		NameKey:             "",
 		CallerKey:           "", // 不记录日志调用位置
 		FunctionKey:         zapcore.OmitKey,
@@ -34,7 +35,7 @@ func main() {
 	// lock it.
 	w := zapcore.AddSync(&lumberjack.Logger{
 		Filename:   "/Users/chentao/go/src/go-test/log/ad.log",
-		MaxSize:    1, // megabytes
+		MaxSize:    5, // megabytes
 		MaxBackups: 300,
 		MaxAge:     28, // days
 	})
@@ -45,9 +46,12 @@ func main() {
 	)
 	logger := zap.New(core)
 
-	//logger.Info(testdata)
+	fmt.Println(testdata)
+	var data interface{}
+	json.Unmarshal([]byte(testdata), &data)
+	logger.Info("log", zap.Any("content", data))
 
-	for i := 0; i < 10000; i++ {
-		logger.Info(fmt.Sprintf(testdata, i))
-	}
+	//for i := 0; i < 10000; i++ {
+	//	logger.Info(fmt.Sprintf(testdata, i))
+	//}
 }
