@@ -21,7 +21,6 @@ func AppendContent(filename, content string) {
 		fd.WriteString(content + "\n")
 	}
 
-	defer fd.Close()
 }
 
 // CreateDateDir basePath是固定目录路径
@@ -44,7 +43,6 @@ func readString(filename string) {
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
 
 	rd := bufio.NewReader(f)
 	for {
