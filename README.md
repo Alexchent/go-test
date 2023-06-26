@@ -53,7 +53,7 @@
 ### [websocket](./gin-ws/websocket.md)
 ### [net/rpc](./rpc-demo)
 golang官方的`net/rpc`库，使用`encoding/gob`进行编解码，由于其他语言不支持gob编解码方式，所以使用net/rpc库实现的RPC方法**没办法进行跨语言调用**
-
+### [protobuf 作为restful接口传输协议](./protobuf.md)
 
 参考文章：
 > [为什么你不应该接收race代码](https://xargin.com/why-you-should-reject-racy-code/)
