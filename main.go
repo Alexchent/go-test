@@ -14,18 +14,21 @@ type User struct {
 }
 
 func main() {
+	// http://localhost/?token=123
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// 获取 get 参数
 		token := r.URL.Query().Get("token")
-		log.Default()
 		log.Println(token)
 		fmt.Fprintf(w, "Welcome to my websit！")
 	})
 
 	// 静态资源
+	// http://localhost/static
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	// 解析json数据
+	// curl --location 'http://localhost/decode' --header 'Content-Type: application/json' --data '{"age":10,"firstname":"zhao","lastname":"liner"}'
 	http.HandleFunc("/decode", func(w http.ResponseWriter, r *http.Request) {
 		var user User
 		json.NewDecoder(r.Body).Decode(&user)
@@ -33,6 +36,7 @@ func main() {
 		fmt.Fprintf(w, "%s %s is %d years old", user.Firstname, user.Lastname, user.Age)
 	})
 
+	// 返回json
 	http.HandleFunc("/encode", func(w http.ResponseWriter, r *http.Request) {
 		peter := User{
 			Firstname: "慕容秋荻",
