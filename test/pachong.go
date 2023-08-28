@@ -11,14 +11,14 @@ import (
 	"time"
 )
 
-const PATH = "/Users/chentao/Downloads/pachong/"
+const PATH = "/Users/chentao/Documents/pachong/"
 
 func main() {
 	begin := 940366
 	//host := "https://www.qixiashu.com/yue/62/62422/" // 武侠之无尽恶人 133733
 	host := "https://www.qixiashu.com/yue/465/465479/" // 影视世界从攻略女主开始 939847
 	//dir := "武侠之无尽恶人"
-	dir := "影视实际从攻略女主开始"
+	dir := "影视实际从攻略女主开始1"
 	StartWork(begin, host, dir)
 }
 
@@ -26,7 +26,7 @@ func main() {
 func StartWork(begin int, host, dir string) {
 	//begin := 939847
 	//dir := "武侠之无尽恶人"
-	end := begin + 300
+	end := begin + 3
 	var url string
 	saveDir := PATH + dir
 	file.CreateDateDir(saveDir)
