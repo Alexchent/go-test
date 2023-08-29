@@ -42,5 +42,8 @@ func main() {
 	http.HandleFunc("/login", login)   // curl -s -I localhost:8080/login
 	http.HandleFunc("/logout", logout)
 
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":80", nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

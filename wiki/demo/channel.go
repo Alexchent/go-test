@@ -20,7 +20,7 @@ func (s *SLogMods) Send() {
 	for {
 		select {
 		case msg := <-s.message:
-			fmt.Println(msg)
+			fmt.Println(string(msg))
 		}
 	}
 }
