@@ -3,14 +3,24 @@ package main
 import (
 	_ "embed"
 	"encoding/json"
-	"fmt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"log"
+	"time"
 )
 
 //go:embed test-data.json
 var testdata string
+
+func init() {
+	// 设置时区
+	location, err := time.LoadLocation("Asia/Shanghai")
+	if err != nil {
+		log.Fatal(err)
+	}
+	time.Local = location
+}
 
 func main() {
 	EncoderConfig := zapcore.EncoderConfig{
@@ -37,7 +47,8 @@ func main() {
 		Filename:   "/Users/chentao/go/src/go-test/log/ad.log",
 		MaxSize:    5, // megabytes
 		MaxBackups: 300,
-		MaxAge:     28, // days
+		MaxAge:     28, // 旧日志最大保留天数
+		LocalTime:  true,
 	})
 	core := zapcore.NewCore(
 		zapcore.NewJSONEncoder(EncoderConfig),
@@ -46,12 +57,11 @@ func main() {
 	)
 	logger := zap.New(core)
 
-	fmt.Println(testdata)
+	//fmt.Println(testdata)
 	var data interface{}
 	json.Unmarshal([]byte(testdata), &data)
-	logger.Info("log", zap.Any("content", data))
 
-	//for i := 0; i < 10000; i++ {
-	//	logger.Info(fmt.Sprintf(testdata, i))
-	//}
+	for i := 0; i < 10000; i++ {
+		logger.Info("log", zap.Any("content", data))
+	}
 }
