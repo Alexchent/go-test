@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexchen/go_test/Cache/redis"
 	file "github.com/alexchen/go_test/File"
+	"github.com/alexchen/go_test/cache/redis"
 	"github.com/alexchen/go_test/scan/ScanService"
 	"strings"
 	"time"

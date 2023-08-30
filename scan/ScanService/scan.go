@@ -2,8 +2,8 @@ package scan
 
 import (
 	"fmt"
-	"github.com/alexchen/go_test/Cache/redis"
 	myFile "github.com/alexchen/go_test/File"
+	"github.com/alexchen/go_test/cache/redis"
 	"io/ioutil"
 	"log"
 	path "path/filepath"
