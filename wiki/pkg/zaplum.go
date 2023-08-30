@@ -10,9 +10,6 @@ import (
 	"time"
 )
 
-//go:embed test-data.json
-var testdata string
-
 func init() {
 	// 设置时区
 	location, err := time.LoadLocation("Asia/Shanghai")
@@ -58,6 +55,7 @@ func main() {
 	logger := zap.New(core)
 
 	//fmt.Println(testdata)
+	testdata := `{"name":"test","type":"test"}`
 	var data interface{}
 	json.Unmarshal([]byte(testdata), &data)
 
