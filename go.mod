@@ -12,6 +12,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/gorilla/websocket v1.5.0
+	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.15.0
 	github.com/xuri/excelize/v2 v2.7.1
 	go.uber.org/zap v1.21.0
