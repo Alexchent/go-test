@@ -24,7 +24,8 @@ func main() {
 
 	// 静态资源
 	// http://localhost/static
-	fs := http.FileServer(http.Dir("static/"))
+	//fs := http.FileServer(http.Dir("static/"))
+	fs := http.FileServer(http.Dir("/Users/chentao/Documents/wallpaper"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// 解析json数据
@@ -45,6 +46,6 @@ func main() {
 		}
 		json.NewEncoder(w).Encode(peter)
 	})
-
+	fmt.Println("web 启动, 端口号：80")
 	http.ListenAndServe(":80", nil)
 }
