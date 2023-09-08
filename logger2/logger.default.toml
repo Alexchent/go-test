@@ -1,0 +1,20 @@
+# logger配置文件可使用${programName}代替程序运行时名称
+# outputs.type支持console，file两种类型
+
+level = "INFO"
+logDir = "./logs"
+
+[[outputs]]
+type = "console"
+colored = false
+
+# [[outputs]]
+# type = "file"
+# fileName = "${programName}.log"
+# maxSize = 10  #单位为MB
+# maxDays = 14
+# maxBackups = 30
+# category = "default,shop"
+
+[levels]
+default = "INFO"
