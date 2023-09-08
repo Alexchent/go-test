@@ -1,0 +1,15 @@
+# 启动容器 docker-compose -f docker-compose.yml up -d
+# 说明：
+# -f docker-compose.yml 可忽略
+# -d 你表示后台运行
+
+version: "3.0"
+services:
+  # 生成的容器名：<顶级目录名> 此处是gin
+  # 包含一个镜像 gin-blog 由Dockerfile构建
+  blog:
+    # 执行 . 路径下的Dockerfile
+    build: .
+    # 绑定本机8000端口和容器的8000端口
+    ports:
+      - "8000:8000"
