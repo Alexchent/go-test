@@ -47,7 +47,7 @@ func Do(path string) {
 // Start 单线程处理
 func Start(path string) {
 	start := time.Now()
-	defer fmt.Println(time.Since(start))
+	defer fmt.Println("扫描完毕，共耗时：", time.Since(start))
 
 	scanFile2(path)
 }
@@ -98,10 +98,9 @@ func scanFile2(filePath string) {
 	if err != nil {
 		//log.Fatal(err)
 		fmt.Println(err)
-		return
 	}
 
-	fmt.Println("正在扫描：", filePath)
+	//fmt.Println("正在扫描：", filePath)
 
 	for i := range fileInfoList {
 		fileName := fileInfoList[i].Name()
@@ -121,7 +120,7 @@ func scanFile2(filePath string) {
 
 			content := filePath + "/" + fileName
 			if redis.SAdd(CacheKey, content) == 1 {
-				fmt.Println("发现新的文件：", fileName)
+				fmt.Println("发现新的文件：", content)
 				//filename := fmt.Sprintf(SavePath, time.Now().Format("060102"))
 				myFile.AppendContent("have_save_file.txt", content)
 			}
