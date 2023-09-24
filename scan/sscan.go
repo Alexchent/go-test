@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alexchen/go_test/cache/redis"
+	"regexp"
 	"strings"
 )
 
@@ -24,8 +25,12 @@ func main() {
 func SearchFromRedisSet(key, path string) (count int) {
 	res := redis.SMembers(key)
 	count = 0
+	//过滤掉特殊字符-和_
+	reg, _ := regexp.Compile("-|_")
+	path = reg.ReplaceAllString(path, "")
 	for _, val := range res {
-		if strings.Contains(strings.ToLower(val), path) {
+		a := reg.ReplaceAllString(val, "")
+		if strings.Contains(strings.ToLower(a), strings.ToLower(path)) {
 			fmt.Println(val)
 			count++
 		}
