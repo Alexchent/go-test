@@ -1,4 +1,4 @@
-package sunfa
+package main
 
 // SortPop 冒泡排序 按引用传递
 func SortPop(arr2 *[]int) {

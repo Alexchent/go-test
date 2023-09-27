@@ -1,4 +1,4 @@
-package sunfa
+package main
 
 import (
 	"fmt"

@@ -15,4 +15,4 @@ Auth:
   AccessSecret: $AccessSecret
   AccessExpire: $AccessExpire
 # 建议使用全路径
-SECRET_FILE : "/Users/chentao/go/src/viper-demo/secret/secret.yaml"
+SECRET_FILE : "~/go/src/go-test/viper/config/secret.yaml"

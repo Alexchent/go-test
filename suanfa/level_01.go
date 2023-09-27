@@ -1,4 +1,4 @@
-package sunfa
+package main
 
 func Fibonacci(n int) []int {
 	if n == 0 {
