@@ -10,19 +10,19 @@ import (
 var Client *redis.Client
 var ctx = context.Background()
 
+// https://redis.io/docs/clients/go/
+
 func init() {
+	NewClient()
+}
+
+func NewClient() *redis.Client {
 	Client = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
-
-	//opt, err := redis.ParseURL("redis://<user>:<pass>@localhost:6379/<db>")
-	//if err != nil {
-	//    panic(err)
-	//}
-	//
-	//Client := redis.NewClient(opt)
+	return Client
 }
 
 func Get(key string) (val string) {
@@ -41,6 +41,25 @@ func GetToStruct(key string) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func StoreMap(key string, value map[string]string) {
+	for k, v := range value {
+		err := Client.HSet(ctx, key, k, v).Err()
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+func GetMap(key string) (val map[string]string) {
+	val, err := Client.HGetAll(ctx, key).Result()
+	if err == redis.Nil {
+		fmt.Println("key2 does not exist")
+	} else if err != nil {
+		panic(err)
+	}
+	return
 }
 
 func Set(key string, value interface{}, expiration time.Duration) {

@@ -7,7 +7,6 @@ require (
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/sdbaiguanghe/glog v0.0.0-20160701133742-ca74c069d4e1
 )
 
 require (

@@ -16,3 +16,16 @@ func TestSet(t *testing.T) {
 		t.Error("失败")
 	}
 }
+
+func TestStoreMap(t *testing.T) {
+	session := map[string]string{"name": "John", "surname": "Smith", "company": "Redis", "age": "29"}
+	StoreMap("user-session:123", session)
+}
+
+func TestGetMap(t *testing.T) {
+	session := GetMap("user-session:123")
+	t.Log(session)
+	if session["name"] != "John" {
+		t.Error("失败")
+	}
+}
