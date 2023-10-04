@@ -18,6 +18,19 @@ func ReverseList(head *ListNode) *ListNode {
 	return prev
 }
 
+// 链表反转
+func reverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+	curr := head
+	for curr != nil {
+		nextTemp := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = nextTemp
+	}
+	return prev
+}
+
 // Reverse 反转数组
 func Reverse(nums []int, start, end int) {
 	for start < end {
