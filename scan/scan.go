@@ -13,7 +13,9 @@ func main() {
 	if err != nil {
 		return
 	}
-	path = "/Users/chentao/Downloads"
+	if path == "" {
+		path = "/Users/chentao/Downloads"
+	}
 	scan.Start(path)
 	//path = "/Users/chentao/Documents/转正"
 	//scan.Do(path)
