@@ -52,3 +52,21 @@ func GetFuncName() string {
 	pc, _, _, _ := runtime.Caller(1)
 	return runtime.FuncForPC(pc).Name()
 }
+
+// 判断slice是否存在某个元素
+func InSlice(slice []string, str string) bool {
+	for _, v := range slice {
+		if v == str {
+			return true
+		}
+	}
+	return false
+}
+
+// 反转slice中的元素
+func ReverseSlice(slice []string) []string {
+	for i := 0; i < len(slice)/2; i++ {
+		slice[i], slice[len(slice)-i-1] = slice[len(slice)-i-1], slice[i]
+	}
+	return slice
+}

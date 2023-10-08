@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
-	"log"
 )
 
 func Encrypt(plainText []byte, key []byte) (string, error) {
@@ -52,21 +51,22 @@ func Decrypt(ciphertext string, key []byte) ([]byte, error) {
 	return ciphertextBytes, nil
 }
 
-func main() {
-	key := []byte("7f60a6645e05382fcef5a4209f0d3d24") // 16 bytes key
-	plaintext := []byte("hello world")
-
-	encrypted, err := encrypt(plaintext, key)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Encrypted:", encrypted)
-
-	decrypted, err := decrypt(encrypted, key)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Decrypted:", string(decrypted))
-}
+//
+//func main() {
+//	key := []byte("7f60a6645e05382fcef5a4209f0d3d24") // 16 bytes key
+//	plaintext := []byte("hello world")
+//
+//	encrypted, err := encrypt(plaintext, key)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//
+//	fmt.Println("Encrypted:", encrypted)
+//
+//	decrypted, err := decrypt(encrypted, key)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//
+//	fmt.Println("Decrypted:", string(decrypted))
+//}

@@ -40,3 +40,40 @@ func TestBuildCsv(t *testing.T) {
 	//BuildCsvFile(m, "/Users/chentao/Downloads/report/report-data")
 	util.BuildCsvFile(m, "../log/report-data2")
 }
+
+// 测试slice是否存在某个元素
+func TestInSlice(t *testing.T) {
+	slice := []string{"php", "java", "go", "python"}
+	if !util.InSlice(slice, "php") {
+		t.Errorf("no pass 1 but %+v got", "php")
+	}
+
+	if !util.InSlice(slice, "go") {
+		t.Errorf("no pass 2 but %+v got", "go")
+	}
+
+	if util.InSlice(slice, "c++") {
+		t.Errorf("no pass 3 but %+v got", "c++")
+	}
+}
+
+// 测试反转slice
+func TestReverseSlice(t *testing.T) {
+	slice := []string{"php", "java", "go", "python"}
+	util.ReverseSlice(slice)
+	if slice[0] != "python" {
+		t.Errorf("no pass 1 but %+v got", slice[0])
+	}
+
+	if slice[1] != "go" {
+		t.Errorf("no pass 2 but %+v got", slice[1])
+	}
+
+	if slice[2] != "java" {
+		t.Errorf("no pass 3 but %+v got", slice[2])
+	}
+
+	if slice[3] != "php" {
+		t.Errorf("no pass 4 but %+v got", slice[3])
+	}
+}
