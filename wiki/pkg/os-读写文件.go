@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 )
 
 func main() {
@@ -12,7 +12,7 @@ func main() {
 }
 
 func rd() {
-	content, err := ioutil.ReadFile("hello")
+	content, err := os.ReadFile("hello")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -24,7 +24,7 @@ func rd() {
 func wrb(content string) {
 	message := []byte(content)
 
-	err := ioutil.WriteFile("hello", message, 0644)
+	err := os.WriteFile("hello", message, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}

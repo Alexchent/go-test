@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"crypto/aes"
@@ -10,7 +10,7 @@ import (
 	"log"
 )
 
-func encrypt(plainText []byte, key []byte) (string, error) {
+func Encrypt(plainText []byte, key []byte) (string, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return "", err
@@ -28,7 +28,7 @@ func encrypt(plainText []byte, key []byte) (string, error) {
 	return base64.URLEncoding.EncodeToString(ciphertext), nil
 }
 
-func decrypt(ciphertext string, key []byte) ([]byte, error) {
+func Decrypt(ciphertext string, key []byte) ([]byte, error) {
 	ciphertextBytes, err := base64.URLEncoding.DecodeString(ciphertext)
 	if err != nil {
 		return nil, err

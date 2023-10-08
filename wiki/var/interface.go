@@ -47,6 +47,9 @@ func Test(animal Animal) {
 }
 
 func main() {
+	//var _ Animal = &dog{}
+	//var _ Animal = (*dog)(nil)
+
 	jojo := &Cat{
 		name: "jojo",
 		age:  3,
@@ -59,4 +62,6 @@ func main() {
 
 	Test(jojo)
 	Test(jinmao)
+
+	//var _ Animal = (*Cat)(nil)
 }

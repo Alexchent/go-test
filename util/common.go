@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"os"
+	"runtime"
 	"sort"
 	"strconv"
 )
@@ -44,4 +45,10 @@ func BuildCsvFile(m map[int][]string, filename string) {
 		// 刷新缓冲
 		w.Flush()
 	}
+}
+
+// GetFuncName 获取运行中的函数名
+func GetFuncName() string {
+	pc, _, _, _ := runtime.Caller(1)
+	return runtime.FuncForPC(pc).Name()
 }
