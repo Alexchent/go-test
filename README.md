@@ -21,6 +21,7 @@
 - [json、map 之间的转化](./wiki/pkg/json-map.go)
 - [json、struct 之间的转化](./wiki/pkg/json-struct.go)
 - [%v ,%+v, %#v 输出结构体时有什么区别](./wiki/pkg/fmt.Printf.go)
+- [hystrix 实现限流熔断](test/requestlimit_test.go)
 
 ## 使用第三方包
 - [配置文件操作 viper](https://github.com/spf13/viper) 
