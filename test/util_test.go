@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/alexchen/go_test/suanfa/solution"
 	"github.com/alexchen/go_test/util"
 	"testing"
 )
@@ -75,5 +76,29 @@ func TestReverseSlice(t *testing.T) {
 
 	if slice[3] != "php" {
 		t.Errorf("no pass 4 but %+v got", slice[3])
+	}
+}
+
+func TestDecimalToBinary(t *testing.T) {
+	n := 1041
+	if p := solution.DecimalToBinary(n); p != "10000010001" {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+}
+
+func TestFindMissing2(t *testing.T) {
+	A := []int{1, 3, 6, 4, 1, 2}
+	if p := solution.FindMissingInteger(A); p != 5 {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+
+	A = []int{1, 2, 3}
+	if p := solution.FindMissingInteger(A); p != 4 {
+		t.Errorf("no pass 2 but %+v got", p)
+	}
+
+	A = []int{-1, -3}
+	if p := solution.FindMissingInteger(A); p != 1 {
+		t.Errorf("no pass 3 but %+v got", p)
 	}
 }
