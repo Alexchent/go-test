@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/alexchen/go_test/suanfa/code"
 	"github.com/alexchen/go_test/suanfa/solution"
 	"github.com/alexchen/go_test/util"
 	"testing"
@@ -88,17 +89,45 @@ func TestDecimalToBinary(t *testing.T) {
 
 func TestFindMissing2(t *testing.T) {
 	A := []int{1, 3, 6, 4, 1, 2}
-	if p := solution.FindMissingInteger(A); p != 5 {
+	if p := solution.FindMissing2(A); p != 5 {
 		t.Errorf("no pass 1 but %+v got", p)
 	}
 
 	A = []int{1, 2, 3}
-	if p := solution.FindMissingInteger(A); p != 4 {
+	if p := solution.FindMissing2(A); p != 4 {
 		t.Errorf("no pass 2 but %+v got", p)
 	}
 
 	A = []int{-1, -3}
-	if p := solution.FindMissingInteger(A); p != 1 {
+	if p := solution.FindMissing2(A); p != 1 {
 		t.Errorf("no pass 3 but %+v got", p)
+	}
+}
+
+func TestFindEle(t *testing.T) {
+	n := []int{}
+	if p := code.FindEle(n); p != 3 {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+}
+
+func TestSolution(t *testing.T) {
+	if p := solution.Solution([]int{2, -2, 3, 0, 4, -7}); p != 4 {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+}
+
+func TestSolution2(t *testing.T) {
+	if p := solution.Solution2(2, []int{1}, []int{2}); p != 1 {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+	if p := solution.Solution2(2, []int{1}, []int{2}); p != 1 {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+	if p := solution.Solution2(2, []int{1}, []int{2}); p != 1 {
+		t.Errorf("no pass 1 but %+v got", p)
+	}
+	if p := solution.Solution2(2, []int{1}, []int{2}); p != 1 {
+		t.Errorf("no pass 1 but %+v got", p)
 	}
 }
