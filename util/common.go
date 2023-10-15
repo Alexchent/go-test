@@ -53,7 +53,7 @@ func GetFuncName() string {
 	return runtime.FuncForPC(pc).Name()
 }
 
-// 判断slice是否存在某个元素
+// InSlice 判断slice是否存在某个元素
 func InSlice(slice []string, str string) bool {
 	for _, v := range slice {
 		if v == str {
@@ -63,10 +63,54 @@ func InSlice(slice []string, str string) bool {
 	return false
 }
 
-// 反转slice中的元素
+// ReverseSlice 反转slice中的元素
 func ReverseSlice(slice []string) []string {
 	for i := 0; i < len(slice)/2; i++ {
 		slice[i], slice[len(slice)-i-1] = slice[len(slice)-i-1], slice[i]
 	}
 	return slice
+}
+
+func TopK(slice []int, k int) []int {
+	if len(slice) <= k {
+		return slice
+	}
+	// 1. 构建小顶堆
+	heap := slice[0:k]
+	for i := k/2 - 1; i >= 0; i-- {
+		adjustHeap(heap, i, k)
+	}
+	// 2. 遍历剩余元素
+	for i := k; i < len(slice); i++ {
+		if slice[i] > heap[0] {
+			heap[0] = slice[i]
+			adjustHeap(heap, 0, k)
+		}
+	}
+	return heap
+}
+
+// 调整堆
+func adjustHeap(heap []int, i, length int) {
+	temp := heap[i]
+	for k := 2*i + 1; k < length; k = 2*k + 1 {
+		if k+1 < length && heap[k+1] < heap[k] {
+			k++
+		}
+		if heap[k] < temp {
+			heap[i] = heap[k]
+			i = k
+		} else {
+			break
+		}
+	}
+	heap[i] = temp
+}
+
+// ReverseString 反转字符串
+func ReverseString(str string) string {
+	if len(str) <= 1 {
+		return str
+	}
+	return ReverseString(str[1:]) + str[:1]
 }
