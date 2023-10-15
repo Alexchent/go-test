@@ -1,0 +1,49 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+)
+
+func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hello world"))
+	})
+
+	server := http.Server{
+		Addr:    ":8080",
+		Handler: mux,
+	}
+	// 创建系统信号接收器
+	done := make(chan os.Signal)
+	// 监听指定信号 ctrl+c kill
+	// 注意kill -9 不行哦
+	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		// 优雅关停
+		<-done
+		fmt.Println("server will shutdown")
+
+		err := server.Shutdown(context.Background())
+		if err != nil {
+			log.Fatal("server shutdown:", err)
+		}
+	}()
+
+	fmt.Println("server run in 8080")
+	err := server.ListenAndServe()
+	if err != nil {
+		if err == http.ErrServerClosed {
+			fmt.Println("server closed under request")
+		} else {
+			fmt.Println(err)
+		}
+	}
+	fmt.Println("server exit")
+}
