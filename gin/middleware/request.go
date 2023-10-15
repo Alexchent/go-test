@@ -21,9 +21,8 @@ func ApiCostTime() gin.HandlerFunc {
 		if len(code) == 0 {
 			code = strconv.Itoa(c.Writer.Status())
 		}
-		costTime := time.Since(start).Milliseconds()
-		group := "api"
+		costTime := time.Since(start)
 
-		log.Println(path, code, costTime, group)
+		log.Println(path, code, costTime)
 	}
 }

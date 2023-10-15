@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/alexchen/go_test/middleware"
 	"log"
 	"net/http"
 	"os"
@@ -13,8 +14,9 @@ import (
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hello world"))
+		w.Write([]byte("index"))
 	})
+	mux.HandleFunc("/hello", middleware.Chain(sayBye, middleware.Logging(), middleware.Recover()))
 
 	server := http.Server{
 		Addr:    ":8080",
@@ -46,4 +48,8 @@ func main() {
 		}
 	}
 	fmt.Println("server exit")
+}
+
+func sayBye(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello World!")
 }

@@ -2,20 +2,28 @@ package main
 
 import (
 	"context"
+	"demo.com/alex/gin/middleware"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	router := gin.Default()
+	//router := gin.Default()
+	router := gin.New()
+	router.Use(middleware.ApiCostTime())
 	router.GET("/", func(c *gin.Context) {
-		time.Sleep(5 * time.Second)
+		//time.Sleep(5 * time.Second)
 		c.String(http.StatusOK, "Welcome Gin Server restart2")
+	})
+
+	router.GET("/hello", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello World!")
 	})
 
 	srv := &http.Server{
@@ -32,7 +40,7 @@ func main() {
 
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal)
-	signal.Notify(quit, os.Interrupt)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	log.Println("Shutdown Server ...")
 
