@@ -46,6 +46,28 @@ func main() {
 		}
 		json.NewEncoder(w).Encode(peter)
 	})
+	// 将路由和处理函数绑定起来
+	http.HandleFunc("/hello", HandleHelloRequest)
+
+	http.Handle("/hi", &HelloHandler{content: "Hi World!"})
+
 	fmt.Println("web 启动, 端口号：80")
-	http.ListenAndServe(":80", nil)
+	err := http.ListenAndServe(":80", nil)
+	if err != nil {
+		panic(err.Error())
+	}
+}
+
+func HandleHelloRequest(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello World!")
+}
+
+// HelloHandler 实现了http.Handler接口的结构体
+type HelloHandler struct {
+	content string
+}
+
+// 实现了ServeHTTP方法的结构体，就是一个处理器
+func (r *HelloHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, r.content)
 }

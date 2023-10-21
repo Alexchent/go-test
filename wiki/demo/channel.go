@@ -6,7 +6,7 @@ type SLogMods struct {
 	message chan []byte
 }
 
-var Slog = &SLogMods{}
+var Slog = &SLogMods{} // 在其他语言中相当于实例化对象
 
 func init() {
 	Slog.message = make(chan []byte, 10000)

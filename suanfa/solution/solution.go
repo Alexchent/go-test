@@ -1,72 +1,54 @@
-package main
+package solution
 
-import (
-	"crypto/md5"
-	"fmt"
-)
-
-func main() {
-	str := "contentTest2"
-	s := md5.Sum([]byte(str))
-	md5str := fmt.Sprintf("%x", s)
-	fmt.Println(md5str)
-}
-
-func ReverseInt(N int) {
-	var enable_print int
-	enable_print = N % 10
-	for N > 0 {
-		if enable_print == 0 && (N/10)%10 != 0 {
-			enable_print = 1
-		} else if enable_print == 1 {
-			fmt.Print(N % 10)
-		}
-		N = N / 10
-	}
-}
-
-// 一个由N个整数组成的数组A，有坐标P>=Q, 如果P到Q之间的元素之和是0，则称为A的一个零和区间
-// 例如，数组A = [2, -2, 3, 0, 4, -7]，有5个零和区间，分别是[0,0]，[2,3]，[0,5]，[3,3]，[4,5]
-// 写一个函数，给定一个由N个整数组成的数组A，返回A中零和区间的个数
-// 例如，给定数组A = [2, -2, 3, 0, 4, -7]，函数应该返回5，如上述解释
-// 假定：
-// N是一个整数，范围[0..100,000]
-// 数组A的每个元素的取值范围[-10,000..10,000]
-// 在你的解决方案中，关注正确性。你的解决方案的性能不是评估的重点。
+// You are given an implementation of a function Solution that,given a positive integer N,
+//prints to standard output another integer using the digits of N,which was formed by reversing a decimal representation of N.
+// The leading zeros of the resulting integer should be not be printed by the function.
+// For example, given N = 123 the function should print 321, and given N = 100 the function should print 1.
+// Assume that:
+// N is an integer within the range [1..1,000,000,000].
+// In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
 // Compare this snippet from test/solution_test.go:
 
-// func SumZeroSlice(A []int) int {
+//func Solution(N int) {
+//	var enable_print int
+//	enable_print = N % 10
+//	for N > 0 {
+//		if enable_print == 0 && N%10 != 0 {
+//			enable_print = 1
+//		} else if enable_print == 1 {
+//			fmt.Print(N % 10)
+//		}
+//		N = N / 10
+//	}
+//}
+
 func Solution(A []int) int {
+	if len(A) >= 100000 {
+		return -1
+	}
+
 	var count int
+	allzero := true
 	for i := 0; i < len(A); i++ {
+		if A[i] != 0 {
+			allzero = false
+		}
 		var sum int
 		for j := i; j < len(A); j++ {
 			sum += A[j]
 			if sum == 0 {
 				count++
+				if count >= 1000000000 {
+					return -1
+				}
 			}
 		}
 	}
-	return count
-}
-
-func Solution1(A []int) int {
-	var count int
-	for i := 0; i < len(A); i++ {
-		var sum int
-		for j := i; j < len(A); j++ {
-			sum += A[j]
-			if sum == 0 {
-				count++
-			}
-		}
+	if allzero {
+		return -1
 	}
 	return count
 }
-
-// 给出一个由N个城市组成的基础设施，编号从1到N
-// 给出一个由M条道路组成的数组，每条道路连接两个城市，道路是双向的
-// 道路的起点和终点处不相交（它们可以通过地下隧道避免碰撞）
 
 // An infrastrunture consisting of N cities numbered from 1 to N, and M bidirectional roads between them is given.
 // Roads do not intersect apart from at their start and end points (they can pass through underground tunnels to avoid collisions).
@@ -85,6 +67,17 @@ func Solution1(A []int) int {
 // M is an integer within the range [0..200,000];
 // each element of arrays A, B is an integer within the range [1..N];
 // A[i] ≤ B[i].
+// In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
+// Compare this snippet from test/solution_test.go:
+//func TestSolution(t *testing.T) {
+//	if p := Solution(4, []int{1, 2, 3, 3}, []int{2, 3, 1, 4}); p != 4 {
+//		t.Errorf("no pass 1 but %+v got", p)
+//	}
+//	if p := Solution(4, []int{1, 2, 4, 5}, []int{2, 3, 5, 6}); p != -1 {
+//		t.Errorf("no pass 2 but %+v got", p)
+//	}
+//}
+
 func Solution2(N int, A []int, B []int) int {
 	var max int
 	for i := 0; i < len(A); i++ {

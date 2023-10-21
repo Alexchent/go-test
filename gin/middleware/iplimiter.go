@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"net/netip"
 )
@@ -12,7 +13,7 @@ import (
 func IpLimiter(allowedNetIps []string) gin.HandlerFunc {
 	var prefixes []netip.Prefix
 	if len(allowedNetIps) == 0 {
-		allowedNetIps = []string{"10.0.0.0/8"}
+		allowedNetIps = []string{"10.0.0.0/8"} // A类地址表示范围：10.0.0.1 ~ 10.255.255.254
 	}
 	for _, netIp := range allowedNetIps {
 		prefix, err := netip.ParsePrefix(netIp)
@@ -25,6 +26,7 @@ func IpLimiter(allowedNetIps []string) gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 		clientIp := c.ClientIP()
+		log.Print(clientIp)
 		ip, err := netip.ParseAddr(clientIp)
 		if err != nil {
 			c.AbortWithStatus(http.StatusBadRequest)

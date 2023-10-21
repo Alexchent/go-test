@@ -16,7 +16,7 @@ import (
 func main() {
 	//router := gin.Default()
 	router := gin.New()
-	router.Use(middleware.ApiCostTime())
+	router.Use(middleware.ApiCostTime(), middleware.IpLimiter([]string{"127.0.0.1/8"}))
 	router.GET("/", func(c *gin.Context) {
 		//time.Sleep(5 * time.Second)
 		c.String(http.StatusOK, "Welcome Gin Server restart2")

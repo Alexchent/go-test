@@ -7,6 +7,24 @@ import (
 
 func main() {
 	ch := make(chan int)
+	//quit := make(chan bool)
+	go func() {
+		// 只有一个channel执行，如果没有则会阻塞
+		select {
+		case <-time.After(3 * time.Second):
+			fmt.Println("超时")
+			//quit <- true
+		case <-ch:
+			fmt.Println("finish")
+		}
+	}()
+	//ch <- 1
+	//<-quit
+	fmt.Println("程序结束")
+}
+
+func test() {
+	ch := make(chan int)
 	quit := make(chan bool)
 
 	//新开一个协程

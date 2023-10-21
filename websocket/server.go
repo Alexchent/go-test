@@ -1,13 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 )
 
-//设置websocket
-//CheckOrigin防止跨站点的请求伪造
+// 设置websocket
+// CheckOrigin防止跨站点的请求伪造
 var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
 		return true
@@ -43,5 +44,9 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/ws", wsHandler)
 
-	http.ListenAndServe("localhost:8080", nil)
+	fmt.Println("启动ws服务 :8080")
+	err := http.ListenAndServe("localhost:8080", nil)
+	if err != nil {
+		return
+	}
 }

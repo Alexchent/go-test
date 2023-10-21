@@ -4,7 +4,7 @@ import "fmt"
 
 // 双指针经典算法
 
-// 去除有序数组中的重复项, 返回移除后新数组的长度
+// RemoveDuplicatesFromSortedArray 去除有序数组中的重复项, 返回移除后新数组的长度
 // 快慢指针, 快指针发现与慢指针对应的数值不重复，则慢指针前进一位，同时修改原数组对应的数值
 func RemoveDuplicatesFromSortedArray(arr []int) []int {
 	if len(arr) == 0 {
@@ -57,7 +57,6 @@ func main() {
 }
 
 // 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
-//
 // 请注意 ，必须在不复制数组的情况下原地对数组进行操作。
 func moveZeroesFast(nums []int) {
 	left, right, n := 0, 0, len(nums)
