@@ -9,7 +9,15 @@ import (
 // 传递取消信号，结束任务
 
 func main() {
-	mock()
+	//mock()
+	//DoLater(func() {
+	//	fmt.Println("延时任务开始")
+	//}, 2*time.Second)
+
+	DoAfter(2*time.Second, func() {
+		println("2s时间到" +
+			"延时任务开始")
+	})
 }
 
 func mockCancel() {
@@ -35,25 +43,25 @@ func mockCancel() {
 	time.Sleep(1 * time.Second)
 }
 
-// 传递超时信号，结束任务
-func mock() {
+// DoAfter 传递超时信号，实现延时任务
+func DoAfter(delay time.Duration, f func()) {
 	// 3s 后超时
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-	// 模拟子 goroutine 持续工作
-
-	go func() {
-		time.Sleep(5 * time.Second)
-		// 通知子 goroutine 退出
-		cancel()
-	}()
 
 	select {
 	case <-ctx.Done():
-		println("完成任务")
-		return
+		f()
 	case <-time.After(10 * time.Second):
 		println("任务超时")
+	}
+}
+
+// DoLater 利用context实现一个延迟任务
+func DoLater(f func(), delay time.Duration) {
+	select {
+	case <-time.After(delay):
+		f()
 	}
 }
 
