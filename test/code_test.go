@@ -39,22 +39,9 @@ func TestRotate(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7}
 	code.Rotate(nums, 3)
 	t.Log(nums)
-	if !sliceEqual(nums, []int{5, 6, 7, 1, 2, 3, 4}) {
+	if !reflect.DeepEqual(nums, []int{5, 6, 7, 1, 2, 3, 4}) {
 		t.Error("error: ", nums)
 	}
-}
-
-func sliceEqual(a, b []int) bool {
-	if len(a) != len(b) {
-		return false
-	}
-
-	for i := 0; i < len(a); i++ {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-	return true
 }
 
 func TestJump(t *testing.T) {

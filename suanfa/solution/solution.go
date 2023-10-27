@@ -50,6 +50,9 @@ func Solution(A []int) int {
 	return count
 }
 
+// 给出一个由N个城市组成的基础设施，编号从1到N
+// 给出一个由M条道路组成的数组，每条道路连接两个城市，道路是双向的
+// 道路的起点和终点处不相交（它们可以通过地下隧道避免碰撞）
 // An infrastrunture consisting of N cities numbered from 1 to N, and M bidirectional roads between them is given.
 // Roads do not intersect apart from at their start and end points (they can pass through underground tunnels to avoid collisions).
 // For each pair of cities directly connected by a road, let's define their network rank as the total number of roads that are connected to either of the two cities.
@@ -69,15 +72,15 @@ func Solution(A []int) int {
 // A[i] ≤ B[i].
 // In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
 // Compare this snippet from test/solution_test.go:
-//func TestSolution(t *testing.T) {
-//	if p := Solution(4, []int{1, 2, 3, 3}, []int{2, 3, 1, 4}); p != 4 {
-//		t.Errorf("no pass 1 but %+v got", p)
+//
+//	func TestSolution(t *testing.T) {
+//		if p := Solution(4, []int{1, 2, 3, 3}, []int{2, 3, 1, 4}); p != 4 {
+//			t.Errorf("no pass 1 but %+v got", p)
+//		}
+//		if p := Solution(4, []int{1, 2, 4, 5}, []int{2, 3, 5, 6}); p != -1 {
+//			t.Errorf("no pass 2 but %+v got", p)
+//		}
 //	}
-//	if p := Solution(4, []int{1, 2, 4, 5}, []int{2, 3, 5, 6}); p != -1 {
-//		t.Errorf("no pass 2 but %+v got", p)
-//	}
-//}
-
 func Solution2(N int, A []int, B []int) int {
 	var max int
 	for i := 0; i < len(A); i++ {

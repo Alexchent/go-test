@@ -1,6 +1,9 @@
 package solution
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 // 10进制转为2进制，判断二进制中连续0的最大个数
 // 9 -> 1001 -> 2
@@ -75,4 +78,40 @@ func FindMissing2(A []int) int {
 		}
 	}
 	return res
+}
+
+// SumZeroSlice 一个由N个整数组成的数组A，有坐标P>=Q, 如果P到Q之间的元素之和是0，则称为A的一个零和区间
+// 例如，数组A = [2, -2, 3, 0, 4, -7]，有5个零和区间，分别是[0,0]，[2,3]，[0,5]，[3,3]，[4,5]
+// 写一个函数，给定一个由N个整数组成的数组A，返回A中零和区间的个数
+// 例如，给定数组A = [2, -2, 3, 0, 4, -7]，函数应该返回5，如上述解释
+// 假定：
+// N是一个整数，范围[0..100,000]
+// 数组A的每个元素的取值范围[-10,000..10,000]
+// 在你的解决方案中，关注正确性。你的解决方案的性能不是评估的重点。
+// Compare this snippet from test/solution_test.go:
+func SumZeroSlice(A []int) int {
+	var count int
+	for i := 0; i < len(A); i++ {
+		var sum int
+		for j := i; j < len(A); j++ {
+			sum += A[j]
+			if sum == 0 {
+				count++
+			}
+		}
+	}
+	return count
+}
+
+func ReverseInt(N int) {
+	var enablePrint int
+	enablePrint = N % 10
+	for N > 0 {
+		if enablePrint == 0 && (N/10)%10 != 0 {
+			enablePrint = 1
+		} else if enablePrint == 1 {
+			fmt.Print(N % 10)
+		}
+		N = N / 10
+	}
 }
