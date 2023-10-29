@@ -3,16 +3,28 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/alexchen/go_test/middleware"
+	"github.com/alexchen/go_test/http/middleware"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 func main() {
 	mux := http.NewServeMux()
+
+	go func() {
+		for {
+			select {
+			case <-time.After(time.Second * 5):
+				log.Printf("datas-len: ")
+			}
+		}
+	}()
+
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("index"))
 	})

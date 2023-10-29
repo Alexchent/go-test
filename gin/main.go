@@ -1,13 +1,14 @@
 package main
 
 import (
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func setupRouter() *gin.Engine {
-	r := gin.Default()
-
+	r := gin.New()
+	pprof.Register(r)
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
 		user := c.Params.ByName("name")

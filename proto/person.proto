@@ -18,9 +18,9 @@ protoc --go_out=. --go_opt=paths=source_relative \
 protoc --gofast_out=. person.proto
  */
 
-//service Person {
-//  rpc PersonList (PersonListRequest) returns (PersonListResponse) {}
-//}
+service PersonSvc {
+  rpc PersonList (PersonListRequest) returns (PersonListResponse) {}
+}
 
 message PersonListRequest{
   string name=1;
