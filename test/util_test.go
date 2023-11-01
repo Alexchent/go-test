@@ -4,9 +4,12 @@ import (
 	"github.com/alexchen/go_test/suanfa/code"
 	"github.com/alexchen/go_test/suanfa/solution"
 	"github.com/alexchen/go_test/util"
+	"go.uber.org/goleak"
 	"testing"
 )
 
+// 执行单个测试用例 go test -v -test.run TestAddCommas
+// go test -v -run TestAddCommas
 func TestAddCommas(t *testing.T) {
 	if p := util.AddCommas(100000); p != "100,000" {
 		t.Errorf("no pass 1 but %+v got", p)
@@ -130,4 +133,13 @@ func TestSolution2(t *testing.T) {
 	if p := solution.Solution2(2, []int{1}, []int{2}); p != 1 {
 		t.Errorf("no pass 1 but %+v got", p)
 	}
+}
+
+func TestLeak(t *testing.T) {
+	defer goleak.VerifyNone(t)
+
+	ch := make(chan int)
+	go func() {
+		<-ch
+	}()
 }
