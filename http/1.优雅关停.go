@@ -15,6 +15,9 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
+	go func() {
+		log.Println(http.ListenAndServe(":6060", nil))
+	}()
 
 	go func() {
 		for {
