@@ -11,3 +11,12 @@ func Rotate(nums []int, k int) {
 	// 3. 反转后面的元素
 	Reverse(nums, k, len(nums)-1)
 }
+
+// 反转数组
+func Reverse(nums []int, start, end int) {
+	for start < end {
+		nums[start], nums[end] = nums[end], nums[start]
+		start++
+		end--
+	}
+}
