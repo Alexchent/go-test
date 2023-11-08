@@ -42,23 +42,21 @@ func IsIntersect(head1, head2 *Node) bool {
 		head2 = head2.Next
 	}
 
-	// 长的链表先走
-	if len1 > len2 {
-		for i := 0; i < len1-len2; i++ {
-			head1 = head1.Next
-		}
-	} else {
-		for i := 0; i < len2-len1; i++ {
-			head2 = head2.Next
-		}
+	// 长的链表先走, 让两个链表的长度相同
+	for len1 > len2 {
+		head1 = head1.Next
+		len1--
+	}
+	for len2 > len1 {
+		head2 = head2.Next
+		len2--
 	}
 
-	// 两个链表同时走
+	// 两个链表同时走，直到相交
 	for head1 != nil && head2 != nil {
 		if head1 == head2 {
 			return true
 		}
-
 		head1 = head1.Next
 		head2 = head2.Next
 	}

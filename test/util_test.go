@@ -5,6 +5,7 @@ import (
 	"github.com/alexchen/go_test/suanfa/solution"
 	"github.com/alexchen/go_test/util"
 	"go.uber.org/goleak"
+	"reflect"
 	"testing"
 )
 
@@ -142,4 +143,12 @@ func TestLeak(t *testing.T) {
 	go func() {
 		<-ch
 	}()
+}
+
+func TestSumTwo(t *testing.T) {
+	a := []int{1, 2, 3, 4, 5}
+	b := code.TwoSum(a, 7)
+	if !reflect.DeepEqual(b, []int{2, 3}) {
+		t.Errorf("no pass 1 but")
+	}
 }

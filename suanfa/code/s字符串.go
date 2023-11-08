@@ -39,30 +39,30 @@ func reverseString(str string) {
 // 最长公共前缀
 // 编写一个函数来查找字符串数组中的最长公共前缀。
 // 如果不存在公共前缀，返回空字符串 ""。
-func longestCommonPrefix(strs []string) string {
-	// 横向扫描
-	if len(strs) == 0 {
-		return ""
-	}
-	prefix := strs[0]
-	for i := 1; i < len(strs); i++ {
-		prefix = lcp(prefix, strs[i])
-		if prefix == "" {
-			break
-		}
-	}
-	return prefix
-}
+//func longestCommonPrefix(strs []string) string {
+//	// 横向扫描
+//	if len(strs) == 0 {
+//		return ""
+//	}
+//	prefix := strs[0]
+//	for i := 1; i < len(strs); i++ {
+//		prefix = lcp(prefix, strs[i])
+//		if prefix == "" {
+//			break
+//		}
+//	}
+//	return prefix
+//}
 
 // 两个字符串的最长公共前缀
-func lcp(str1, str2 string) string {
-	length := min(len(str1), len(str2))
-	index := 0
-	for index < length && str1[index] == str2[index] {
-		index++
-	}
-	return str1[:index]
-}
+//func lcp(str1, str2 string) string {
+//	length := min(len(str1), len(str2))
+//	index := 0
+//	for index < length && str1[index] == str2[index] {
+//		index++
+//	}
+//	return str1[:index]
+//}
 
 // 反转字符串中的单词
 // 给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
@@ -103,27 +103,27 @@ func reverseWords(s string) string {
 // E   D   H   N
 // 之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如：
 // "LCIRETOESIIGEDHN"
-func convert(s string, numRows int) string {
-	if numRows == 1 {
-		return s
-	}
-	rows := make([]string, min(numRows, len(s)))
-	curRow := 0
-	goingDown := false
-	for _, c := range s {
-		rows[curRow] += string(c)
-		if curRow == 0 || curRow == numRows-1 {
-			goingDown = !goingDown
-		}
-		if goingDown {
-			curRow++
-		} else {
-			curRow--
-		}
-	}
-	res := ""
-	for _, row := range rows {
-		res += row
-	}
-	return res
-}
+//func convert(s string, numRows int) string {
+//	if numRows == 1 {
+//		return s
+//	}
+//	rows := make([]string, min(numRows, len(s)))
+//	curRow := 0
+//	goingDown := false
+//	for _, c := range s {
+//		rows[curRow] += string(c)
+//		if curRow == 0 || curRow == numRows-1 {
+//			goingDown = !goingDown
+//		}
+//		if goingDown {
+//			curRow++
+//		} else {
+//			curRow--
+//		}
+//	}
+//	res := ""
+//	for _, row := range rows {
+//		res += row
+//	}
+//	return res
+//}
