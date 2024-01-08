@@ -23,6 +23,9 @@ func (iPhone IPhone) call() {
 	fmt.Println("手续费 15%")
 }
 
+var _ Phone = (*NokiaPhone)(nil) // 接口完整性检查
+var _ Phone = (*IPhone)(nil)     // 接口完整性检查
+
 func main() {
 	nokia := new(NokiaPhone)
 	hello(nokia)
