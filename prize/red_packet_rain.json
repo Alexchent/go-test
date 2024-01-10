@@ -1,0 +1,116 @@
+[
+  {
+    "type": "thanks",
+    "title": "谢谢参与",
+    "value": 0,
+    "weight": 40
+  },
+  {
+    "type": "coin",
+    "title": "8锦鲤币",
+    "value": 8,
+    "weight": 30
+  },
+  {
+    "type": "coin",
+    "title": "88锦鲤币",
+    "value": 88,
+    "weight": 15
+  },
+  {
+    "type": "coin",
+    "title": "188锦鲤币",
+    "value": 188,
+    "weight": 10
+  },
+  {
+    "type": "coin",
+    "title": "688锦鲤币",
+    "value": 688,
+    "weight": 8
+  },
+  {
+    "type": "coin",
+    "title": "888锦鲤币",
+    "value": 888,
+    "weight": 6
+  },
+  {
+    "type": "coin",
+    "title": "1688锦鲤币",
+    "value": 1688,
+    "weight": 5
+  },
+  {
+    "type": "coupon",
+    "title": "10漫画代金券",
+    "value": 10,
+    "weight": 10
+  },
+  {
+    "type": "coupon",
+    "title": "20漫画代金券",
+    "value": 20,
+    "weight": 5
+  },
+  {
+    "type": "coupon",
+    "title": "50漫画代金券",
+    "value": 50,
+    "weight": 3
+  },
+  {
+    "type": "coupon",
+    "title": "100漫画代金券",
+    "value": 100,
+    "weight": 1
+  },
+  {
+    "type": "coupon",
+    "title": "200漫画代金券",
+    "value": 200,
+    "weight": 0.5
+  },
+  {
+    "type": "coupon",
+    "title": "500漫画代金券",
+    "value": 500,
+    "weight": 0.1
+  },
+  {
+    "type": "vip",
+    "title": "15分钟会员",
+    "value": 15,
+    "weight": 3
+  },
+  {
+    "type": "vip",
+    "title": "30分钟会员",
+    "value": 30,
+    "weight": 1.5
+  },
+  {
+    "type": "vip",
+    "title": "1小时会员",
+    "value": 60,
+    "weight": 1
+  },
+  {
+    "type": "vip",
+    "title": "2小时会员",
+    "value": 120,
+    "weight": 0.5
+  },
+  {
+    "type": "vip",
+    "title": "6小时会员",
+    "value": 360,
+    "weight": 0.2
+  },
+  {
+    "type": "vip",
+    "title": "24小时会员",
+    "value": 1440,
+    "weight": 0.1
+  }
+]

@@ -48,7 +48,7 @@
 1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
 2. 固定扫描 `Download/xunlei` 目录下的所有文件 `go run scan_download.go`
 3. 将历史扫描结果保存到文件 `have_save_file.txt` 中 `go run save_scan.go`
-
+4. [抽奖demo](./prize)
 
 ## 实验
 ### [websocket](./gin-ws/websocket.md)
