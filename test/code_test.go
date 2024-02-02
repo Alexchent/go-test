@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/alexchen/go_test/suanfa/code"
 	"reflect"
 	"testing"
@@ -19,7 +18,7 @@ func TestRemoveDuplicates(t *testing.T) {
 	//s := BinarySearch(num, 3)
 	//fmt.Println(s)
 	l := code.RemoveDuplicates(num)
-	fmt.Println(num[:l])
+	//fmt.Println(num[:l])
 	mb := []int{1, 2, 3, 4, 5, 12, 20}
 	if !reflect.DeepEqual(num[:l], mb) {
 		t.Error("error, want 7 got ", l)
@@ -29,7 +28,7 @@ func TestRemoveDuplicates(t *testing.T) {
 func TestReverse(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7}
 	code.Reverse(nums, 0, len(nums)-1)
-	t.Log(nums)
+	//t.Log(nums)
 	if !reflect.DeepEqual(nums, []int{7, 6, 5, 4, 3, 2, 1}) {
 		t.Error("error: ", nums)
 	}
@@ -38,7 +37,7 @@ func TestReverse(t *testing.T) {
 func TestRotate(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7}
 	code.Rotate(nums, 3)
-	t.Log(nums)
+	//t.Log(nums)
 	if !reflect.DeepEqual(nums, []int{5, 6, 7, 1, 2, 3, 4}) {
 		t.Error("error: ", nums)
 	}
