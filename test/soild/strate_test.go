@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/alexchen/go_test/SOILD"
+	"github.com/alexchen/go_test/soild"
 	"testing"
 )
 
 // 执行测试 go test -v -run TestAddStrategy
 func TestAddStrategy(t *testing.T) {
-	add := &SOILD.Add{}
-	operation := &SOILD.Operation{}
+	add := &soild.Add{}
+	operation := &soild.Operation{}
 	operation.SetStrategy(add)
 
 	result := operation.ExecuteStrategy(5, 3)
@@ -23,8 +23,8 @@ func TestAddStrategy(t *testing.T) {
 }
 
 func TestSubStrategy(t *testing.T) {
-	sub := &SOILD.Sub{}
-	operation := &SOILD.Operation{}
+	sub := &soild.Sub{}
+	operation := &soild.Operation{}
 	operation.SetStrategy(sub)
 
 	result := operation.ExecuteStrategy(5, 3)
@@ -39,9 +39,9 @@ func TestSubStrategy(t *testing.T) {
 }
 
 func TestStrategySwitch(t *testing.T) {
-	add := &SOILD.Add{}
-	sub := &SOILD.Sub{}
-	operation := &SOILD.Operation{}
+	add := &soild.Add{}
+	sub := &soild.Sub{}
+	operation := &soild.Operation{}
 
 	operation.SetStrategy(add)
 	result := operation.ExecuteStrategy(5, 3)

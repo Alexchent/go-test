@@ -1,4 +1,4 @@
-package SOILD
+package soild
 
 // 策略模式
 type IStrategy interface {
