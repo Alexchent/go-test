@@ -13,22 +13,22 @@
 - [range 可以迭代 array, slice, map, chan](./wiki/range.go)
 
 ### 常用内置包
-- [time 实现延迟的三种方式](./wiki/pkg/time.go)
-- [strconv](./wiki/pkg/strconv-字符串转换.go)
-- [rand 生成随机数](./wiki/pkg/rand.go)
-- [fmt.Scan 接收输入](./wiki/pkg/fmt.Scan接收输入信息.go)
-- [os.open 按行读取文件](./wiki/pkg/os.Open-按行读取文件.go)
-- [json、map 之间的转化](./wiki/pkg/json-map.go)
-- [json、struct 之间的转化](./wiki/pkg/json-struct.go)
-- [%v ,%+v, %#v 输出结构体时有什么区别](./wiki/pkg/fmt.Printf.go)
+- [time 实现延迟的三种方式](pkg/time.go)
+- [strconv](pkg/strconv-字符串转换.go)
+- [rand 生成随机数](pkg/rand.go)
+- [fmt.Scan 接收输入](pkg/fmt.Scan接收输入信息.go)
+- [os.open 按行读取文件](pkg/os.Open-按行读取文件.go)
+- [json、map 之间的转化](pkg/json-map.go)
+- [json、struct 之间的转化](pkg/json-struct.go)
+- [%v ,%+v, %#v 输出结构体时有什么区别](pkg/fmt.Printf.go)
 - [hystrix 实现限流熔断](test/requestlimit_test.go)
 
 ## 使用第三方包
 - [配置文件操作 viper](https://github.com/spf13/viper) 
 
 #### 接收命令参数的两种方式
-- [flag](./wiki/pkg/flag-获取命令行参数.go)
-- [os.Args](./wiki/pkg/os.Args-获取命令行参数.go)
+- [flag](pkg/flag-获取命令行参数.go)
+- [os.Args](pkg/os.Args-获取命令行参数.go)
 
 ## 高级
 ### 保障所有 goroutine 完整执行的技巧
@@ -55,6 +55,8 @@
 ### [net/rpc](./rpc-demo)
 golang官方的`net/rpc`库，使用`encoding/gob`进行编解码，由于其他语言不支持gob编解码方式，所以使用net/rpc库实现的RPC方法**没办法进行跨语言调用**
 ### [protobuf 作为restful接口传输协议](./protobuf.md)
+
+### [设计模式](./SOILD)
 
 参考文章：
 > [为什么你不应该接收race代码](https://xargin.com/why-you-should-reject-racy-code/)
