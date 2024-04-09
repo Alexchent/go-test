@@ -31,7 +31,7 @@ func TestAddCommas(t *testing.T) {
 
 func TestBuildCsv(t *testing.T) {
 	m := make(map[int][]string)
-	m[0] = []string{"学生编号", "学生姓名", "学生特长", "序号"}
+	m[0] = []string{"学生编号", "学生姓名", "学生特长"}
 	m[1] = []string{"s1", "学生1", "乾坤大挪移"}
 	m[2] = []string{"s2", "学生2", "乾坤大挪移"}
 	m[3] = []string{"s3", "学生3", "乾坤大挪移"}
@@ -44,7 +44,7 @@ func TestBuildCsv(t *testing.T) {
 	m[10] = []string{"s10", "学生10", "乾坤大挪移"}
 
 	//BuildCsvFile(m, "/Users/chentao/Downloads/report/report-data")
-	util.BuildCsvFile(m, "../log/report-data2")
+	util.BuildCsvFile(m, "report-data")
 }
 
 // 测试slice是否存在某个元素
