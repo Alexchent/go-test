@@ -31,7 +31,7 @@ func BuildCsvFile(m map[int][]string, filename string) {
 	defer file.Close()
 
 	// 写入UTF-8 BOM，防止中文乱码
-	file.WriteString("\xEF\xBB\xBF")
+	_, _ = file.WriteString("\xEF\xBB\xBF")
 	w := csv.NewWriter(file)
 
 	// 按照key排序
@@ -42,9 +42,9 @@ func BuildCsvFile(m map[int][]string, filename string) {
 	sort.Ints(keys)
 	for _, key := range keys {
 		w.Write(m[key])
-		// 刷新缓冲
-		w.Flush()
 	}
+	// 刷新缓冲
+	w.Flush()
 }
 
 // GetFuncName 获取运行中的函数名

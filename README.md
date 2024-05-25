@@ -2,7 +2,6 @@
 > https://golang.google.cn/doc/tutorial/getting-started
 
 ## 接入redis
-
 > https://github.com/go-redis/redis
 
 ## 知识点
@@ -25,6 +24,7 @@
 
 ## 使用第三方包
 - [配置文件操作 viper](https://github.com/spf13/viper) 
+- [命令行参数 pflag](wiki/pkg/pflag.go)
 
 #### 接收命令参数的两种方式
 - [flag](pkg/flag-获取命令行参数.go)
@@ -45,9 +45,6 @@
 ### 2. [go work 工作空间模式](./workspace.md)
 
 ## 实用功能
-1. 扫描指定目录下的所有文件，保存文件名到文件中 `go run scan.go`
-2. 固定扫描 `Download/xunlei` 目录下的所有文件 `go run scan_download.go`
-3. 将历史扫描结果保存到文件 `have_save_file.txt` 中 `go run save_scan.go`
 4. [抽奖demo](./prize)
 
 ## 实验
