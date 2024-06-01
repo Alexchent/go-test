@@ -19,6 +19,7 @@ type Person struct {
 
 func main() {
 	r := gin.Default()
+	r.Use(Cors())
 
 	// 使用AsciiJSON 生成仅有 ASCII字符的JSON，非ASCII字符将会被转义
 	r.GET("/AsciiJSON", func(c *gin.Context) {
@@ -69,4 +70,19 @@ func main() {
 
 	// 监听并在 0.0.0.0:8080 上启动服务
 	r.Run(":8080")
+}
+
+func Cors() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		method := context.Request.Method
+		context.Header("Access-Control-Allow-Origin", "*")
+		context.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token")
+		context.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		context.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
+		context.Header("Access-Control-Allow-Credentials", "true")
+		if method == "OPTIONS" {
+			context.AbortWithStatus(http.StatusNoContent)
+		}
+		context.Next()
+	}
 }
