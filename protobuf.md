@@ -30,5 +30,5 @@ message Person {
 
 2. 生成pb.go文件 `protoc --go_out=. --go_opt=paths=source_relative proto/person.proto`
 
-## 写接口，代码参考 [serve](./wiki/protobuf/serve.go)
-## 模拟请求，代码参考 [client](./wiki/protobuf/client.go)
+## 写接口，代码参考 [serve](proto/protobuf/serve.go)
+## 模拟请求，代码参考 [client](proto/protobuf/client.go)
