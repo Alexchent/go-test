@@ -6,7 +6,7 @@ echo 指定文本文本 "$1"
 
 [ ! -f $file ] && { echo "file $file does not exist"; exit 1; }
 
-cat "$1" | iconv -f GBK -t UTF-8 | grep "\d章" -n | tee "$1".chapter
+cat ${file} | iconv -f GBK -t UTF-8 | grep "\d章" -n | tee ${file}.chapter
 
 # cat 倚天收美行.txt | iconv -f GBK -t UTF-8 | grep "\d章" -n >> 倚天收美行.chapter
 

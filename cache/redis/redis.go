@@ -13,16 +13,24 @@ var ctx = context.Background()
 // https://redis.io/docs/clients/go/
 
 func init() {
-	NewClient()
-}
-
-func NewClient() *redis.Client {
 	Client = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "127.0.0.1:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
-	return Client
+}
+
+type CacheSvc struct {
+	Client *redis.Client
+}
+
+func NewCacheSvc(options redis.Options) *CacheSvc {
+	Client = redis.NewClient(&redis.Options{
+		Addr:     options.Addr,
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+	return &CacheSvc{Client: Client}
 }
 
 func Get(key string) (val string) {
