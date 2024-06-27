@@ -10,7 +10,6 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
-	"log"
 	"os"
 	"os/exec"
 	"strconv"
@@ -42,33 +41,31 @@ func SplitFile(f string, line int, startLine, endLine int) error {
 
 	utf8Reader := transform.NewReader(open, simplifiedchinese.GBK.NewDecoder()) // 编码 GBK转为UTF-8
 	fileScanner := bufio.NewScanner(utf8Reader)
-	lines := 1
+
 	var builder strings.Builder
 	builder.Grow(1000000000)
-	for fileScanner.Scan() {
+	for i := 1; fileScanner.Scan(); i++ {
 		// 将收到的GBK内容转换成utf-8
 		context := strings.TrimSpace(fileScanner.Text())
 		if len(context) == 0 {
 			continue
 		}
-		if lines < startLine {
+		if i < startLine {
 			//fmt.Println("忽略：" + context + "\n")
-			lines++
 			continue
 		}
 		//context = strings.Replace(context, "，", "", -1)
 		//context = strings.Replace(context, "。", "", -1)
 		builder.WriteString(context)
-		if lines%line == 0 {
+		if i%line == 0 {
 			fmt.Println("==================")
 			content := builder.String()
 			fmt.Println(content)
 			builder.Reset()
 		}
-		if lines >= endLine {
+		if i >= endLine {
 			return nil
 		}
-		lines++
 	}
 	return err
 }
@@ -120,15 +117,6 @@ func Tts(content string, title string) {
 	}
 }
 
-func AppendContent(filename, content string) {
-	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		// 打开文件失败处理
-		log.Fatal(err.Error())
-	} else {
-		_, err := fd.WriteString(content + "\n")
-		if err != nil {
-			return
-		}
-	}
+func GetChapter() {
+
 }
