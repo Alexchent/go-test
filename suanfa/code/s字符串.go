@@ -1,6 +1,8 @@
 package code
 
-import "strings"
+import (
+	"strings"
+)
 
 // 最后一个单词的长度
 // 给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中 最后一个 单词的长度。
@@ -127,3 +129,92 @@ func reverseWords(s string) string {
 //	}
 //	return res
 //}
+
+// 匹配字符串中第一个位置
+func strStr(haystack string, needle string) int {
+	needleLen := len(needle)
+	maxlen := len(haystack)
+	if maxlen < needleLen {
+		return -1
+	}
+	if maxlen == needleLen {
+		if haystack == needle {
+			return 0
+		} else {
+			return -1
+		}
+	}
+
+	count := maxlen - needleLen + 1
+	for i := 0; i < count; {
+		tmp := haystack[i : i+needleLen]
+		if needle == tmp {
+			return i
+		}
+		i++
+	}
+	return -1
+}
+
+// 计算每个单词的长度，追加直至长度超出maxWidth
+// 如果只有一个单词，则左对齐
+// 最后一行左对齐
+// 其他两端对齐，单词之间空格均匀分配...
+func fullJustify(words []string, maxWidth int) []string {
+	wcount := len(words)
+	tlen := len(words[0])
+	var ret []string
+	start := 0
+	for i := 1; i < wcount; i++ {
+		if (tlen + len(words[i])) > maxWidth {
+			if i == wcount-1 {
+
+			} else {
+				ret = append(ret, joinStr(words[start:i], maxWidth, 0))
+			}
+			start = i
+		} else {
+			tlen += len(words[i])
+		}
+	}
+}
+
+// l
+// p == 1 表示最后一行
+func joinStr(words []string, l int, p int) (ret string) {
+	count := len(words)
+	if count == 0 {
+		return
+	}
+	if count == 1 {
+		ret = words[0] + strings.Repeat(" ", l-len(words[0]))
+		return
+	}
+
+	if p == 1 {
+		// 最后一行
+		for index, w := range words {
+			if index == count-1 {
+				ret += w + strings.Repeat("", l-len(ret)-len(w))
+			} else {
+				ret += w + " "
+			}
+		}
+	} else {
+		// 计算单词之间的空格数
+		var wl int //单词长度总和
+		for _, w := range words {
+			wl += len(w)
+		}
+		lastkn := (l - wl) % (count - 1) // 填充空格数量
+		kn := (l - wl - lastkn) / (count - 1)
+		for i, w := range words {
+			if i == count-1 {
+				ret += w + strings.Repeat("", lastkn)
+			} else {
+				ret += w + strings.Repeat("", kn)
+			}
+		}
+	}
+	return
+}
