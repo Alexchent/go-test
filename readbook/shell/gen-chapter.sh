@@ -8,7 +8,7 @@ echo 输出的文件 $2
 
 # [ ! -d $voice_folder ] && { echo "folder $voice_folder does not exist"; exit 1; }
 
-cat $file | iconv -f GBK -t UTF-8 | grep "\d章" -n >> $2
+cat $file | grep "\d章" -n >> $2
 
 #cat $file | iconv -f GBK -t UTF-8 | grep "\d章" -n >> ${voice_folder}/$2
 

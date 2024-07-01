@@ -44,8 +44,6 @@ example:
 			}
 		case "chapter":
 			//fmt.Println(fmt.Sprintf("暂不支持%s分割", way))
-			str := util.DetectEncoding(file)
-			fmt.Println(str)
 			err := SplitByChapter(file, output)
 			if err != nil {
 				fmt.Println(err.Error())
@@ -112,7 +110,13 @@ func SplitByChapter(f, output string) error {
 	} else {
 		output = filenameOnly + ".chapter"
 	}
-	command := `shell/gen-chapter.sh`
+	str := util.DetectEncoding(file)
+	var command string
+	if str == util.GBK {
+		command = `shell/gen-chapter-iconv.sh`
+	} else {
+		command = `shell/gen-chapter.sh`
+	}
 	fmt.Println(fmt.Sprintf(`shell/gen-chapter.sh %s %s`, f, output))
 	cmd := exec.Command("/bin/bash", "-C", command, f, output)
 	out, err := cmd.CombinedOutput()
