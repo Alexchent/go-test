@@ -6,8 +6,32 @@ import (
 	"io"
 	"log"
 	"os"
+	path "path/filepath"
 	"strings"
 )
+
+func PrintFile(fullFilename string) {
+	fmt.Println("fullFilename =", fullFilename)
+	//获取文件名带后缀
+	filenameWithSuffix := path.Base(fullFilename)
+	fmt.Println("filenameWithSuffix =", filenameWithSuffix)
+	//获取文件后缀
+	fileSuffix := path.Ext(filenameWithSuffix)
+	fmt.Println("fileSuffix =", fileSuffix)
+
+	//获取文件名
+	filenameOnly := strings.TrimSuffix(filenameWithSuffix, fileSuffix)
+	fmt.Println("filenameOnly =", filenameOnly)
+}
+
+func GetFileNameOnly(fullFilename string) string {
+	//获取文件名带后缀
+	filenameWithSuffix := path.Base(fullFilename)
+	//获取文件后缀
+	fileSuffix := path.Ext(filenameWithSuffix)
+	//获取文件名
+	return strings.TrimSuffix(filenameWithSuffix, fileSuffix)
+}
 
 func AppendContent(filename, content string) {
 	//filename := fmt.Sprintf(SavePath, time.Now().Format("060102"))
