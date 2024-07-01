@@ -42,8 +42,8 @@ func Execute() {
 
 func init() {
 	// 全局flag
-	rootCmd.PersistentFlags().StringVarP(&file, "file", "f", "", "目标文件")
-	rootCmd.PersistentFlags().StringVarP(&chapter, "chapter", "", "", "章节目录文件")
-	rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "output", "输出文件路径")
+	//rootCmd.PersistentFlags().StringVarP(&file, "file", "f", "", "目标文件")
+	//rootCmd.PersistentFlags().StringVarP(&chapter, "chapter", "", "", "章节目录文件")
+	//rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "output", "输出文件路径")
 	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
