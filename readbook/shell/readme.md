@@ -4,7 +4,7 @@
 ### 1. 从txt文件中提取章节信息
 从`test.txt`文件中提取章节信息
 ```bash
-./gen-chapter.sh ../storage/test.txt  yt.chapter
+./gen-chapter.sh storage/test.txt  yt.chapter
 ```
 
 

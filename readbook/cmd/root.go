@@ -11,9 +11,10 @@ import (
 )
 
 var (
-	file   string
-	output string
-	way    string
+	file    string
+	chapter string
+	output  string
+	way     string
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -42,6 +43,7 @@ func Execute() {
 func init() {
 	// 全局flag
 	rootCmd.PersistentFlags().StringVarP(&file, "file", "f", "", "目标文件")
+	rootCmd.PersistentFlags().StringVarP(&chapter, "chapter", "", "", "章节目录文件")
 	rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "output", "输出文件路径")
 	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

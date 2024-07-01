@@ -116,7 +116,3 @@ func Tts(content string, title string) {
 		fmt.Println(string(out))
 	}
 }
-
-func GetChapter() {
-
-}
