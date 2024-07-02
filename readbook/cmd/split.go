@@ -8,7 +8,6 @@ import (
 	"bufio"
 	"fmt"
 	myFile "github.com/alexchen/go_test/File"
-	"github.com/alexchen/go_test/util"
 	"github.com/spf13/cobra"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
@@ -26,16 +25,14 @@ var splitCmd = &cobra.Command{
 	Long: `txt文本切割
 
 example:
-	1. go run main.go split -f shell/storage/test.txt --way=line -o output
-	1. go run main.go split -f shell/storage/test.txt --way=chapter -o output
+	1. go run main.go split -f storage/test.txt --way=line -o output
+	1. go run main.go split -f storage/test.txt --way=chapter -o output
+	2. go run main.go split -f storage/test.txt --way=chapter --chapter storage/yt.chapter -o gg.sh
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if output != "" {
-			if _, err := os.Stat(output); os.IsNotExist(err) {
-				fmt.Println(fmt.Sprintf("目录%s不存在", output))
-				return
-			}
-		}
+		//if !CheckFlag() {
+		//	return
+		//}
 		switch way {
 		case "line":
 			err := SplitFile(file, output, line)
@@ -43,12 +40,16 @@ example:
 				fmt.Println(err.Error())
 			}
 		case "chapter":
-			//fmt.Println(fmt.Sprintf("暂不支持%s分割", way))
-			err := SplitByChapter(file, output)
+			ch, err := GetChapterMap(chapter)
 			if err != nil {
 				fmt.Println(err.Error())
+				return
 			}
-			return
+			err = GenderShellForSplitByChapter(ch, file, output)
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
 		default:
 			fmt.Println(fmt.Sprintf("暂不支持%s分割", way))
 			return
@@ -59,15 +60,8 @@ example:
 
 func init() {
 	splitCmd.Flags().StringVarP(&way, "way", "w", "line", "切割文件的方式，选择（line|chapter）中的一种")
-	splitCmd.Flags().StringVarP(&file, "file", "f", "", "目标文件")
-	splitCmd.Flags().StringVarP(&output, "output", "o", "", "输出文件路径")
 	splitCmd.Flags().IntVarP(&line, "line", "n", 100, "切割行数")
-	// file 必传
-	err := splitCmd.MarkFlagRequired("file")
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+	splitCmd.Flags().StringVarP(&chapter, "chapter", "", "", "章节目录文件")
 	rootCmd.AddCommand(splitCmd)
 }
 
@@ -100,31 +94,6 @@ func SplitFile(f, output string, line int) error {
 	myFile.AppendContent(output+fmt.Sprintf("/%d.txt", chapterNo), content)
 
 	fmt.Println("总计：", i)
-	return err
-}
-
-func SplitByChapter(f, output string) error {
-	filenameOnly := myFile.GetFileNameOnly(f)
-	if output != "" {
-		output = output + "/" + filenameOnly + ".chapter"
-	} else {
-		output = filenameOnly + ".chapter"
-	}
-	str := util.DetectEncoding(file)
-	var command string
-	if str == util.GBK {
-		command = `shell/gen-chapter-iconv.sh`
-	} else {
-		command = `shell/gen-chapter.sh`
-	}
-	fmt.Println(fmt.Sprintf(`shell/gen-chapter.sh %s %s`, f, output))
-	cmd := exec.Command("/bin/bash", "-C", command, f, output)
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		return err
-	} else {
-		fmt.Println(string(out))
-	}
 	return err
 }
 
