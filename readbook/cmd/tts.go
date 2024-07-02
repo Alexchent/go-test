@@ -11,7 +11,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sync"
 )
+
+var wg sync.WaitGroup
 
 // ttsCmd represents the tts command
 var ttsCmd = &cobra.Command{
@@ -25,6 +28,7 @@ var ttsCmd = &cobra.Command{
 		}
 		walker := 8
 		ch := make(chan string, walker)
+		wg.Add(walker)
 		for i := 1; i <= walker; i++ {
 			go GenVoice(ch)
 		}
@@ -40,6 +44,8 @@ var ttsCmd = &cobra.Command{
 		if err != nil {
 			return
 		}
+		wg.Wait()
+		close(ch)
 	},
 }
 
@@ -48,7 +54,7 @@ func init() {
 	rootCmd.AddCommand(ttsCmd)
 }
 
-func GenVoice(ch chan string) {
+func GenVoice(ch <-chan string) {
 	for file := range ch {
 		fmt.Println(fmt.Sprintf(`say -o %s.wav --data-format=alaw -f %s`, file, file))
 		//cmd := exec.Command("say", fmt.Sprintf(`-o %s.wav`, file), "--data-format=alaw", "-f", file)
@@ -60,4 +66,5 @@ func GenVoice(ch chan string) {
 			fmt.Println(string(out))
 		}
 	}
+	wg.Done()
 }
