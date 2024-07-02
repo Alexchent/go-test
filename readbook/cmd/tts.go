@@ -26,7 +26,7 @@ var ttsCmd = &cobra.Command{
 			fmt.Println("目标文件不存在，请传入正确的file")
 			return
 		}
-		walker := 8
+		walker := 4
 		ch := make(chan string, walker)
 		wg.Add(walker)
 		for i := 1; i <= walker; i++ {
@@ -56,15 +56,14 @@ func init() {
 
 func GenVoice(ch <-chan string) {
 	for file := range ch {
-		fmt.Println(fmt.Sprintf(`say -o %s.wav --data-format=alaw -f %s`, file, file))
-		//cmd := exec.Command("say", fmt.Sprintf(`-o %s.wav`, file), "--data-format=alaw", "-f", file)
-		cmd := exec.Command("say", "-o", fmt.Sprintf(`%s.wav`, file), "--data-format=alaw", "-f", file)
-		out, err := cmd.CombinedOutput()
+		fmt.Println("开始执行", fmt.Sprintf(`say -o %s.wav --data-format=alaw -f %s`, file, file))
+		out := fmt.Sprintf(`%s.wav`, file)
+		cmd := exec.Command("say", "-o", out, "--data-format=alaw", "-f", file)
+		_, err := cmd.CombinedOutput()
 		if err != nil {
 			fmt.Println("combined out err=" + err.Error())
-		} else {
-			fmt.Println(string(out))
 		}
+		fmt.Println(out + "生成完毕")
 	}
 	wg.Done()
 }
