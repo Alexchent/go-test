@@ -28,10 +28,11 @@ example:
 		if !CheckFlag() {
 			return
 		}
-		err := GetChapter(file, output)
+		o, err := GetChapter(file, output)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
+		fmt.Println("章节文件" + o + "生成完毕")
 		return
 	},
 }
@@ -80,30 +81,40 @@ func GetChapterMap(f string) (chapters Chapters, err error) {
 }
 
 // GenderShellForSplitByChapter 生成shell脚本
-func GenderShellForSplitByChapter(chapters Chapters, f, save string) error {
+func GenderShellForSplitByChapter(chapters Chapters, f, save string, genVoice bool) error {
 	fd, err := os.OpenFile(save, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		return err
 	}
 	defer fd.Close()
 
+	unicode := util.DetectEncoding(f)
+	var cmd string
 	for i := 1; i < len(chapters); i++ {
 		c := chapters[i]
 		//cmd := fmt.Sprintf("sed -n '%d,%dp' %s | iconv -f GBK -t UTF-8 >> tmp/%s.txt", c.Start, c.End, f, c.Title)
-		cmd := fmt.Sprintf("sed -n '%d,%dp' %s | iconv -f GBK -t UTF-8 >> tmp/%s.txt | say -o %s.wav --data-format=alaw -f tmp/%s.txt",
-			c.Start, c.End, f, c.Title, c.Title, c.Title)
+		if unicode == util.GBK {
+			cmd = fmt.Sprintf("sed -n '%d,%dp' %s | iconv -f GBK -t UTF-8 >> tmp/%s.txt",
+				c.Start, c.End, f, c.Title)
+		} else {
+			cmd = fmt.Sprintf("sed -n '%d,%dp' %s >> tmp/%s.txt",
+				c.Start, c.End, f, c.Title)
+		}
+		if genVoice {
+			cmd += fmt.Sprintf(" | say -o tmp/%s.wav --data-format=alaw -f tmp/%s.txt &", c.Title, c.Title)
+		}
 		fd.WriteString(cmd + "\n")
 	}
 	return err
 }
 
 // GetChapter 生成txt文件暂存章节信息
-func GetChapter(f, output string) error {
+func GetChapter(f, output string) (chapterFile string, err error) {
 	filenameOnly := myFile.GetFileNameOnly(f)
 	if output != "" {
-		output = output + "/" + filenameOnly + ".chapter"
+		chapterFile = output + "/" + filenameOnly + ".chapter"
 	} else {
-		output = filenameOnly + ".chapter"
+		chapterFile = filenameOnly + ".chapter"
 	}
 	str := util.DetectEncoding(file)
 	var command string
@@ -112,13 +123,13 @@ func GetChapter(f, output string) error {
 	} else {
 		command = `shell/gen-chapter.sh`
 	}
-	fmt.Println(fmt.Sprintf(`shell/gen-chapter.sh %s %s`, f, output))
-	cmd := exec.Command("/bin/bash", "-C", command, f, output)
+	fmt.Println(fmt.Sprintf(`shell/gen-chapter.sh %s %s`, f, chapterFile))
+	cmd := exec.Command("/bin/bash", "-C", command, f, chapterFile)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		return err
+		return "", err
 	} else {
 		fmt.Println(string(out))
 	}
-	return err
+	return chapterFile, err
 }

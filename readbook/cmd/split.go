@@ -26,13 +26,9 @@ var splitCmd = &cobra.Command{
 
 example:
 	1. go run main.go split -f storage/test.txt --way=line -o output
-	1. go run main.go split -f storage/test.txt --way=chapter -o output
-	2. go run main.go split -f storage/test.txt --way=chapter --chapter storage/yt.chapter -o gg.sh
+	2. go run main.go split -f storage/test.txt --way=chapter -o output
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		//if !CheckFlag() {
-		//	return
-		//}
 		switch way {
 		case "line":
 			err := SplitFile(file, output, line)
@@ -40,12 +36,17 @@ example:
 				fmt.Println(err.Error())
 			}
 		case "chapter":
+			chapter, err := GetChapter(file, output)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
 			ch, err := GetChapterMap(chapter)
 			if err != nil {
 				fmt.Println(err.Error())
 				return
 			}
-			err = GenderShellForSplitByChapter(ch, file, output)
+			filenameOnly := myFile.GetFileNameOnly(file)
+			err = GenderShellForSplitByChapter(ch, file, output+"/gen"+filenameOnly+".sh", withVoice)
 			if err != nil {
 				fmt.Println(err.Error())
 				return
@@ -62,6 +63,7 @@ func init() {
 	splitCmd.Flags().StringVarP(&way, "way", "w", "line", "切割文件的方式，选择（line|chapter）中的一种")
 	splitCmd.Flags().IntVarP(&line, "line", "n", 100, "切割行数")
 	splitCmd.Flags().StringVarP(&chapter, "chapter", "", "", "章节目录文件")
+	splitCmd.Flags().BoolVarP(&withVoice, "with-voice", "", true, "是否生成音频文件")
 	rootCmd.AddCommand(splitCmd)
 }
 
