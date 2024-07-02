@@ -44,7 +44,6 @@ func AppendContent(filename, content string) {
 		//fd.Write(buf)
 		fd.WriteString(content + "\n")
 	}
-
 }
 
 // CreateDateDir basePath是固定目录路径
@@ -78,8 +77,6 @@ func readString(filename string) {
 
 		if data != "" {
 			fmt.Println(data)
-			// 写入导redis内
-			//redis.SAdd(scan.CacheKey, data)
 		}
 	}
 }

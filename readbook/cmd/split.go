@@ -46,7 +46,7 @@ example:
 				return
 			}
 			filenameOnly := myFile.GetFileNameOnly(file)
-			err = GenderShellForSplitByChapter(ch, file, output+"/gen"+filenameOnly+".sh", withVoice)
+			err = GenderShellForSplitByChapter(ch, file, filenameOnly+".sh")
 			if err != nil {
 				fmt.Println(err.Error())
 				return
@@ -63,7 +63,6 @@ func init() {
 	splitCmd.Flags().StringVarP(&way, "way", "w", "line", "切割文件的方式，选择（line|chapter）中的一种")
 	splitCmd.Flags().IntVarP(&line, "line", "n", 100, "切割行数")
 	splitCmd.Flags().StringVarP(&chapter, "chapter", "", "", "章节目录文件")
-	splitCmd.Flags().BoolVarP(&withVoice, "with-voice", "", true, "是否生成音频文件")
 	rootCmd.AddCommand(splitCmd)
 }
 

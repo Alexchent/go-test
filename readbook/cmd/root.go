@@ -12,11 +12,11 @@ import (
 )
 
 var (
-	file      string
-	chapter   string
-	output    string
-	way       string
-	withVoice bool
+	file    string
+	chapter string
+	output  string
+	way     string
+	input   string
 )
 
 // rootCmd represents the base command when called without any subcommands

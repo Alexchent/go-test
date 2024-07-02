@@ -81,7 +81,7 @@ func GetChapterMap(f string) (chapters Chapters, err error) {
 }
 
 // GenderShellForSplitByChapter 生成shell脚本
-func GenderShellForSplitByChapter(chapters Chapters, f, save string, genVoice bool) error {
+func GenderShellForSplitByChapter(chapters Chapters, f, save string) error {
 	fd, err := os.OpenFile(save, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		return err
@@ -92,7 +92,6 @@ func GenderShellForSplitByChapter(chapters Chapters, f, save string, genVoice bo
 	var cmd string
 	for i := 1; i < len(chapters); i++ {
 		c := chapters[i]
-		//cmd := fmt.Sprintf("sed -n '%d,%dp' %s | iconv -f GBK -t UTF-8 >> tmp/%s.txt", c.Start, c.End, f, c.Title)
 		if unicode == util.GBK {
 			cmd = fmt.Sprintf("sed -n '%d,%dp' %s | iconv -f GBK -t UTF-8 >> tmp/%s.txt",
 				c.Start, c.End, f, c.Title)
@@ -100,9 +99,9 @@ func GenderShellForSplitByChapter(chapters Chapters, f, save string, genVoice bo
 			cmd = fmt.Sprintf("sed -n '%d,%dp' %s >> tmp/%s.txt",
 				c.Start, c.End, f, c.Title)
 		}
-		if genVoice {
-			cmd += fmt.Sprintf(" | say -o tmp/%s.wav --data-format=alaw -f tmp/%s.txt &", c.Title, c.Title)
-		}
+		//if genVoice {
+		//	cmd += fmt.Sprintf(" | say -o tmp/%s.wav --data-format=alaw -f tmp/%s.txt &", c.Title, c.Title)
+		//}
 		fd.WriteString(cmd + "\n")
 	}
 	return err
