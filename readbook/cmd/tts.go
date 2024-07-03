@@ -43,10 +43,11 @@ var ttsCmd = &cobra.Command{
 			return err
 		})
 		if err != nil {
+			color.Red("目录遍历事变" + err.Error())
 			return
 		}
-		wg.Wait()
-		close(ch)
+		close(ch) // 关闭通过，for消费channel会在消费完后安全退出
+		wg.Wait() // 等待消费goroutine退出
 		color.Red("finish")
 		return
 	},
