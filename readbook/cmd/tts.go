@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"io/fs"
 	"os"
@@ -46,6 +47,8 @@ var ttsCmd = &cobra.Command{
 		}
 		wg.Wait()
 		close(ch)
+		color.Red("finish")
+		return
 	},
 }
 
@@ -61,9 +64,9 @@ func GenVoice(ch <-chan string) {
 		cmd := exec.Command("say", "-o", out, "--data-format=alaw", "-f", file)
 		_, err := cmd.CombinedOutput()
 		if err != nil {
-			fmt.Println("combined out err=" + err.Error())
+			color.Red("combined out err=" + err.Error())
 		}
-		fmt.Println(out + "生成完毕")
+		color.Green("%s:生成完毕", out)
 	}
 	wg.Done()
 }
