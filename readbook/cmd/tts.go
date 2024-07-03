@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"sync"
 )
 
@@ -27,13 +28,14 @@ var ttsCmd = &cobra.Command{
 			fmt.Println("目标文件不存在，请传入正确的file")
 			return
 		}
-		walker := 4
+		npmCPU := runtime.NumCPU()
+		walker := npmCPU / 4 * 3
 		ch := make(chan string, walker)
 		wg.Add(walker)
 		for i := 1; i <= walker; i++ {
 			go GenVoice(ch)
 		}
-
+		color.Blue("启动%d个walker", npmCPU)
 		err := filepath.Walk(input, func(path string, info fs.FileInfo, err error) error {
 			ext := filepath.Ext(path)
 			if ext != ".txt" {
