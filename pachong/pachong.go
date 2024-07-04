@@ -6,29 +6,38 @@ import (
 	file "github.com/alexchen/go_test/File"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
-const PATH = "/Users/chentao/Documents/pachong/"
-
+// 下载书籍
 func main() {
-	begin := 940366
-	//host := "https://www.qixiashu.com/yue/62/62422/" // 武侠之无尽恶人 133733
-	host := "https://www.qixiashu.com/yue/465/465479/" // 影视世界从攻略女主开始 939847
-	//dir := "武侠之无尽恶人"
-	dir := "影视实际从攻略女主开始1"
-	StartWork(begin, host, dir)
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	down1(homeDir)
+}
+
+func down1(saveDir string) {
+	begin, end := 939847, 940506
+	host := "https://www.qixiashu.com/yue/465/465479/"
+	dir := saveDir + "/影视实际从攻略女主开始"
+	StartWork(begin, end, host, dir)
+}
+
+func down2(saveDir string) {
+	begin, end := 133733, 138155
+	host := "https://www.qixiashu.com/yue/62/62422/"
+	dir := saveDir + "/武侠之无尽恶人"
+	StartWork(begin, end, host, dir)
 }
 
 // StartWork 开始工作 begin起始页 dir保存目录
-func StartWork(begin int, host, dir string) {
-	//begin := 939847
-	//dir := "武侠之无尽恶人"
-	end := begin + 3
+func StartWork(begin, end int, host, saveDir string) {
 	var url string
-	saveDir := PATH + dir
 	file.CreateDateDir(saveDir)
 	fmt.Println(saveDir)
 	for begin < end {
@@ -36,7 +45,7 @@ func StartWork(begin int, host, dir string) {
 		fmt.Println(url)
 		getContent(url, saveDir)
 		begin++
-		time.Sleep(time.Second * 10) // 限制爬虫的速率
+		//time.Sleep(time.Second * 1) // 限制爬虫的速率
 	}
 }
 
