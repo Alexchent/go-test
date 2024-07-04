@@ -1,9 +1,8 @@
-package main
+package util
 
 import (
 	"github.com/alexchen/go_test/suanfa/code"
 	"github.com/alexchen/go_test/suanfa/solution"
-	"github.com/alexchen/go_test/util"
 	"go.uber.org/goleak"
 	"reflect"
 	"testing"
@@ -12,19 +11,19 @@ import (
 // 执行单个测试用例 go test -v -test.run TestAddCommas
 // go test -v -run TestAddCommas
 func TestAddCommas(t *testing.T) {
-	if p := util.AddCommas(100000); p != "100,000" {
+	if p := AddCommas(100000); p != "100,000" {
 		t.Errorf("no pass 1 but %+v got", p)
 	}
 
-	if p := util.AddCommas(198); p != "198" {
+	if p := AddCommas(198); p != "198" {
 		t.Errorf("no pass 2 but %+v got", p)
 	}
 
-	if p := util.AddCommas(1198); p != "1,198" {
+	if p := AddCommas(1198); p != "1,198" {
 		t.Errorf("no pass 3 but %+v got", p)
 	}
 
-	if p := util.AddCommas(-1198); p != "-1,198" {
+	if p := AddCommas(-1198); p != "-1,198" {
 		t.Errorf("no pass 4 but %+v got", p)
 	}
 }
@@ -44,21 +43,21 @@ func TestBuildCsv(t *testing.T) {
 	m[10] = []string{"s10", "学生10", "乾坤大挪移"}
 
 	//BuildCsvFile(m, "/Users/chentao/Downloads/report/report-data")
-	util.BuildCsvFile(m, "report-data")
+	BuildCsvFile(m, "report-data")
 }
 
 // 测试slice是否存在某个元素
 func TestInSlice(t *testing.T) {
 	slice := []string{"php", "java", "go", "python"}
-	if !util.InSlice(slice, "php") {
+	if !InSlice(slice, "php") {
 		t.Errorf("no pass 1 but %+v got", "php")
 	}
 
-	if !util.InSlice(slice, "go") {
+	if !InSlice(slice, "go") {
 		t.Errorf("no pass 2 but %+v got", "go")
 	}
 
-	if util.InSlice(slice, "c++") {
+	if InSlice(slice, "c++") {
 		t.Errorf("no pass 3 but %+v got", "c++")
 	}
 }
@@ -66,7 +65,7 @@ func TestInSlice(t *testing.T) {
 // 测试反转slice
 func TestReverseSlice(t *testing.T) {
 	slice := []string{"php", "java", "go", "python"}
-	util.ReverseSlice(slice)
+	ReverseSlice(slice)
 	if slice[0] != "python" {
 		t.Errorf("no pass 1 but %+v got", slice[0])
 	}

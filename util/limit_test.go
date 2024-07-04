@@ -1,8 +1,7 @@
-package main
+package util
 
 import (
 	"fmt"
-	"github.com/alexchen/go_test/util"
 	"sync"
 	"testing"
 	"time"
@@ -10,7 +9,7 @@ import (
 
 func TestCounterLimit(t *testing.T) {
 	var wg sync.WaitGroup
-	ls := util.NewCounterLimit(1*time.Second, 5)
+	ls := NewCounterLimit(1*time.Second, 5)
 
 	for i := 0; i < 7; i++ {
 		wg.Add(1)
