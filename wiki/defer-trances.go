@@ -27,7 +27,10 @@ func b() {
 }
 
 func main() {
-	b()
+	//b()
+
+	a := f()
+	fmt.Println(a)
 }
 
 // 执行结果如下
@@ -37,3 +40,21 @@ func main() {
 //in a
 //leaving: a
 //leaving: b
+
+// defer + 闭包
+func f() (r int) {
+	// defer 执行此时已经记录了参数 r = 0 ， 因此return 对r的更改对其没有影响
+	defer func(r int) {
+		r = r + 5
+	}(r)
+	return 1 // 返回 1
+}
+
+func f2() (r int) {
+	t := 5
+	defer func() {
+		t = t + 5 // return后执行，此时t = 5， (t = t+5) === 10
+	}()
+	// 返回时 t = 5, 因为defer还没有执行
+	return t
+}
