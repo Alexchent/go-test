@@ -80,3 +80,31 @@ func readString(filename string) {
 		}
 	}
 }
+
+// ScanDir 遍历目录下的所有文件
+func ScanDir(dir string) {
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for _, file := range files {
+		filename := file.Name()
+		fullFilename := dir + "/" + filename
+		// 忽略影藏文件
+		if filename[0:1] == "." {
+			continue
+		}
+		ext := path.Ext(filename)
+		// 忽略指定后缀的文件
+		if strings.ToLower(ext) == ".png" {
+			continue
+		}
+		if file.IsDir() {
+			ScanDir(fullFilename)
+		} else {
+			fmt.Println(fullFilename)
+		}
+	}
+}

@@ -96,11 +96,8 @@ func scanFile(filePath string, c chan string, wg *sync.WaitGroup) {
 func scanFile2(filePath string) {
 	fileInfoList, err := ioutil.ReadDir(filePath)
 	if err != nil {
-		//log.Fatal(err)
 		fmt.Println(err)
 	}
-
-	//fmt.Println("正在扫描：", filePath)
 
 	for i := range fileInfoList {
 		fileName := fileInfoList[i].Name()
