@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	path "path/filepath"
 	"strings"
@@ -34,22 +33,33 @@ func GetFileNameOnly(fullFilename string) string {
 }
 
 func AppendContent(filename, content string) {
-	//filename := fmt.Sprintf(SavePath, time.Now().Format("060102"))
 	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
-		// 打开文件失败处理
-		log.Fatal(err.Error())
-	} else {
-		//buf := []byte(content)
-		//fd.Write(buf)
-		fd.WriteString(content + "\n")
+		fmt.Println(err.Error())
+		return
+	}
+	_, err = fd.WriteString(content + "\n")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+}
+
+func AppendContent2(fd *os.File, content string) {
+	//fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	//if err != nil {
+	//	fmt.Println(err.Error())
+	//	return
+	//}
+	_, err := fd.WriteString(content + "\n")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
 	}
 }
 
 // CreateDateDir basePath是固定目录路径
 func CreateDateDir(folderPath string) (dirPath string) {
-	//folderName := time.Now().Format("2006-01-02")
-	//folderPath := filepath.Join(basePath, folderName)
 	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
 		// 必须分成两步
 		// 先创建文件夹
@@ -107,4 +117,23 @@ func ScanDir(dir string) {
 			fmt.Println(fullFilename)
 		}
 	}
+}
+
+// ScaleDir2 扫描目录2
+func ScaleDir2(dir string) error {
+	//获取当前目录下的所有文件或目录信息
+	err := path.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			fmt.Println(path)
+		}
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+	return nil
 }
