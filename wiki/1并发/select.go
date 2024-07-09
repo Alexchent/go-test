@@ -7,19 +7,21 @@ import (
 
 func main() {
 	ch := make(chan int)
-	//quit := make(chan bool)
+	stopC := make(chan struct{})
 	go func() {
 		// 只有一个channel执行，如果没有则会阻塞
 		select {
-		case <-time.After(3 * time.Second):
-			fmt.Println("超时")
-			//quit <- true
+		case <-time.After(1 * time.Second):
+			fmt.Println("超市")
+		case <-stopC:
+			fmt.Println("终止")
 		case <-ch:
-			fmt.Println("finish")
+			fmt.Println("go go go")
 		}
 	}()
 	//ch <- 1
-	//<-quit
+	stopC <- struct{}{}
+	time.Sleep(2 * time.Second)
 	fmt.Println("程序结束")
 }
 
