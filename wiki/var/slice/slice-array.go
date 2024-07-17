@@ -11,8 +11,10 @@ func main() {
 	//b[0] = 10 // panic: runtime error: index out of range [0] with length 0
 	b = append(b, 10, 20)
 	fmt.Println(a, b)
+	fmt.Println("---------------")
 
 	testSlice()
+	fmt.Println("---------------")
 	testMap()
 }
 
