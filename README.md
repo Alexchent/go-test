@@ -45,7 +45,7 @@
 ### 2. [go work 工作空间模式](./workspace.md)
 
 ## 实用功能
-4. [抽奖demo](./prize)
+4. [抽奖demo](./lottery)
 
 ## 实验
 ### [websocket](./gin-ws/websocket.md)

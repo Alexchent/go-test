@@ -1,4 +1,4 @@
-package prize
+package lottery
 
 import (
 	_ "embed"

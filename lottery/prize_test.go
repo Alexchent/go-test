@@ -1,4 +1,4 @@
-package prize
+package lottery
 
 import (
 	_ "embed"
@@ -10,7 +10,7 @@ import (
 //go:embed red_packet_rain.json
 var giftConf string
 
-// go test -v prize_test.go prize.go
+// go test -v prize_test.go lottery.go
 func TestCloseAnGame(t *testing.T) {
 	gifts := &GiftList{}
 	json.Unmarshal([]byte(giftConf), &gifts)
