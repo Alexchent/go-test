@@ -3,8 +3,8 @@ package main
 import (
 	"bytes"
 	"fmt"
-	pb "github.com/alexchen/go_test/proto"
 	"github.com/golang/protobuf/proto"
+	pb "go-test/proto"
 	"io"
 	"log"
 	"net/http"
@@ -32,7 +32,7 @@ func MockHandleLog() {
 
 	respObj := &pb.PersonListResponse{}
 	proto.Unmarshal(respBytes, respObj)
-	fmt.Println(respObj.Women)
+	fmt.Println(respObj.People)
 }
 
 func makeRequest() *pb.PersonListRequest {

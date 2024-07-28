@@ -3,7 +3,7 @@ syntax = "proto3";
 package rpc;
 
 //该go_package选项定义包的导入路径，该路径将包含此文件的所有生成代码。Go 包名称将是导入路径的最后一个路径组件。
-option go_package = "pb";
+option go_package = "./pb";
 
 /** 执行以下脚本生成go文件
 
