@@ -5,6 +5,7 @@ import (
 	"github.com/antonmedv/expr"
 )
 
+// User 注意首字母必须是大写
 type User struct {
 	Channel int64
 	Balance int64
