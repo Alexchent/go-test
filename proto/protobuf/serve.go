@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	pb "github.com/alexchen/go_test/proto"
+	pb "go-test/proto"
 	"io"
 	"log"
 	"net/http"
@@ -30,15 +30,15 @@ func HandleLog(resp http.ResponseWriter, req *http.Request) {
 
 	fmt.Println(request.GetName(), request.GetAge())
 
-	womens := make([]*pb.Woman, 0)
-	womens = append(womens, &pb.Woman{
+	womens := make([]*pb.Person, 0)
+	womens = append(womens, &pb.Person{
 		Id:   1,
 		Name: "xiaomi",
 		Age:  10,
 	})
 	result := &pb.PersonListResponse{
-		Women: womens,
-		Count: 1,
+		People: womens,
+		Count:  1,
 	}
 	response, err := proto.Marshal(result)
 	if err != nil {

@@ -2,7 +2,7 @@
 
 > [Go配置管理神器——Viper中文教程](https://www.cnblogs.com/niuben/p/13896330.html)
 > 
-> [参考代码](./viper)
+> [参考代码]()
 ## 安装 
 ```
 go get github.com/spf13/viper
