@@ -69,5 +69,5 @@ type HelloHandler struct {
 
 // 实现了ServeHTTP方法的结构体，就是一个处理器
 func (r *HelloHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, r.content)
+	fmt.Fprintf(w, "content=%s, args=%v", r.content, req.URL)
 }

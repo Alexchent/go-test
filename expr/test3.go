@@ -46,6 +46,10 @@ func main() {
 		program, _ = expr.Compile(`Value contains "huaw" || Value contains "oppo"`, expr.AsBool())
 		out, _ = expr.Run(program, map[string]interface{}{"Value": "hua.com"})
 		fmt.Println(out)
+
+		program, _ = expr.Compile(`Value == 1010003 && Key == 1`, expr.AsBool())
+		out, _ = expr.Run(program, map[string]interface{}{"Value": 1010003, "Key": 2})
+		fmt.Println(out)
 	}
 
 	//fmt.Print(output)

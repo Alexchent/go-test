@@ -11,9 +11,9 @@ type Book struct {
 }
 
 func main() {
-	//CheckContains()
+	CheckContains()
 
-	Test()
+	//Test()
 }
 
 func Test() {
