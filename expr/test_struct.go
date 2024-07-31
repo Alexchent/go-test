@@ -7,31 +7,28 @@ import (
 
 // User 注意首字母必须是大写
 type User struct {
-	Channel int64
-	Balance int64
-}
-
-type UserInfo struct {
-	Channel string
-	Balance string
+	Channel    string
+	Balance    int64
+	Group      string
+	ReadTime   int64
+	ListenTime int64
+	Level      int64
 }
 
 func main() {
-	code := `Channel=="123" && Balance=="9"`
+	T1()
+	T2()
+	T3()
+	T4()
+}
 
+func T1() {
+	code := `Channel=="123" && Balance==9 || Group contains "shanghai"`
 	program, _ := expr.Compile(code, expr.AsBool())
 	out, err := expr.Run(program, User{
-		Channel: 123,
-		Balance: 9,
-	})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(out)
-
-	out, err = expr.Run(program, UserInfo{
 		Channel: "123",
-		Balance: "9",
+		Balance: 9,
+		Group:   "China:shanghai",
 	})
 	if err != nil {
 		panic(err)
@@ -39,24 +36,44 @@ func main() {
 	fmt.Println(out)
 }
 
-type Book struct {
-	Title  string
-	Author string
-}
-
-func CheckContains() {
-	program, err := expr.Compile(`Title contains "Hello" || Title contains "happy"`, expr.AsBool())
-	if err != nil {
-		panic(err)
-	}
-
-	output, err := expr.Run(program, Book{
-		Title:  "Hello cool",
-		Author: "alex",
+// T2 加法
+func T2() {
+	code := `ReadTime+ListenTime > 100`
+	program, _ := expr.Compile(code, expr.AsBool())
+	out, err := expr.Run(program, User{
+		ReadTime:   90,
+		ListenTime: 2,
 	})
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println(out)
+}
 
-	fmt.Print(output)
+// T3 乘法
+func T3() {
+	code := `ReadTime*Level > 100`
+	program, _ := expr.Compile(code, expr.AsBool())
+	out, err := expr.Run(program, User{
+		ReadTime: 50,
+		Level:    3,
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(out)
+}
+
+// T4 字符串串联
+func T4() {
+	code := `Channel+":"+Group`
+	program, _ := expr.Compile(code)
+	out, err := expr.Run(program, User{
+		Channel: "huaw",
+		Group:   "China:shanghai",
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(out)
 }
