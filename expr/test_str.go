@@ -9,9 +9,21 @@ import (
 
 func main() {
 
+	program, _ := expr.Compile(`Value == "5G"`, expr.AsBool())
+	out, _ := expr.Run(program, map[string]interface{}{"Value": "5G"})
+	fmt.Println(out)
+
+	program, _ = expr.Compile(`Value != "5G"`, expr.AsBool())
+	out, _ = expr.Run(program, map[string]interface{}{"Value": "5G"})
+	fmt.Println(out)
+
+	program, _ = expr.Compile(`Value in ["5G", "wifi"]`, expr.AsBool())
+	out, _ = expr.Run(program, map[string]interface{}{"Value": "5G"})
+	fmt.Println(out)
+
 	// 字符串操作符 contains
-	program, _ := expr.Compile(`Value contains "hua"`, expr.AsBool())
-	out, _ := expr.Run(program, map[string]interface{}{"Value": "hua.com"})
+	program, _ = expr.Compile(`Value contains "hua"`, expr.AsBool())
+	out, _ = expr.Run(program, map[string]interface{}{"Value": "hua.com"})
 	fmt.Println(out)
 
 	// 字符串操作符 startWith

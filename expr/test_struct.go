@@ -38,3 +38,25 @@ func main() {
 	}
 	fmt.Println(out)
 }
+
+type Book struct {
+	Title  string
+	Author string
+}
+
+func CheckContains() {
+	program, err := expr.Compile(`Title contains "Hello" || Title contains "happy"`, expr.AsBool())
+	if err != nil {
+		panic(err)
+	}
+
+	output, err := expr.Run(program, Book{
+		Title:  "Hello cool",
+		Author: "alex",
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Print(output)
+}
