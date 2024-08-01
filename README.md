@@ -30,10 +30,6 @@
 - [flag](pkg/flag-获取命令行参数.go)
 - [os.Args](pkg/os.Args-获取命令行参数.go)
 
-## 高级
-### 保障所有 goroutine 完整执行的技巧
-- [sync.Group]()
-
 ## 踩坑
 - [变量赋值](./wiki/01-变量声明中的坑.go)
 - [data race](./wiki/data-race.go)
