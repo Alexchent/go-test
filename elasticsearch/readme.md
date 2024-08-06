@@ -69,7 +69,12 @@ curl -GET IP:9200/索引名称/索引类型/ID
  curl "http://127.0.0.1:9200/chentao_demo/_doc/100"
 ```
 
-## 插入/更新文档
+## 删除文档
+```bash
+curl -X DELETE "http://127.0.0.1:9200/chentao_demo/_doc/100"
+```
+
+## 插入/覆盖文档
 ```bash
 curl --location --request PUT 'http://127.0.0.1:9200/chentao_demo/_doc/1' \
 --header 'Content-Type: application/json' \
@@ -80,13 +85,16 @@ curl --location --request PUT 'http://127.0.0.1:9200/chentao_demo/_doc/1' \
 }'
 ```
 
+## 修改文档
 ```bash
-curl --location --request PUT 'http://127.0.0.1:9200/chentao_demo/_doc/100' \
+curl 'http://127.0.0.1:9200/chentao_demo/_update/1' \
 --header 'Content-Type: application/json' \
 --data '{
-    "ID":100,
-    "username":"alex1",
-    "age":29
+    "doc":{
+        "ID":1,
+        "username":"tom",
+        "age":20
+    }
 }'
 ```
 
@@ -143,5 +151,27 @@ curl 'http://127.0.0.1:9200/chentao_demo/_search?pretty' \
       "username",
       "age"
     ]
+}'
+```
+
+
+## 一旦es磁盘出现爆满，所有的index都会被自动设置为read-only，重启es无法解除该状态，需要发送请求，如下
+```bash
+curl -X PUT 'http://127.0.0.1:9200/_settings' \
+--header 'Content-Type: application/json' \
+--data '{
+    "index": {
+        "blocks": {
+        "read_only_allow_delete": "false"
+        }
+    }
+}'
+```
+
+```bash
+curl -X PUT 'http://127.0.0.1:9200/_all/_settings' \
+--header 'Content-Type: application/json' \
+--data '{
+    "index.blocks.read_only_allow_delete": null
 }'
 ```
