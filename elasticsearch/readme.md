@@ -1,4 +1,16 @@
+# elastic api操作
+> https://www.cnblogs.com/buchizicai/p/17093719.html
 
+mysql与elasticsearch的概念对比
+
+|Table	|Index|	索引(index)，就是文档的集合，类似数据库的表(table)|
+|---|---|---|
+|Row	|Document|	文档（Document），就是一条条的数据，类似数据库中的行（Row），文档都是JSON格式|
+|Column|	Field|	字段（Field），就是JSON文档中的字段，类似数据库中的列（Column）|
+|Schema|	Mapping|	Mapping（映射）是索引中文档的约束，例如字段类型约束。类似数据库的表结构（Schema）|
+|SQL	|DSL	|DSL是elasticsearch提供的JSON风格的请求语句，用来操作elasticsearch，实现CRUD|
+
+## 基础
 ## 查看elastic版本信息
 ```bash
 curl "http://127.0.0.1:9200/"
@@ -14,69 +26,37 @@ curl "http://127.0.0.1:9200/_cat/health?v"
 curl "http://127.0.0.1:9200/_cat/nodes?v"
 ```
 
-## 列出所有索引以及存储大小
+## 索引 （表）
+- 创建索引库：PUT /索引库名
+- 查询索引库：GET /索引库名
+- 删除索引库：DELETE /索引库名
+- 修改索引库（添加字段）：PUT /索引库名/_mapping
+
+### 列出所有索引以及存储大小
 ```bash
 curl "http://127.0.0.1:9200/_cat/indices?v"
 ```
 
-## 创建索引
+### 创建索引
 ```bash
 curl -X PUT "http://127.0.0.1:9200/wwwuser"
 ```
-
-## 创建索引的同时设置分词器和过滤器
+### 删除索引
 ```bash
-curl --location --request PUT 'http://127.0.0.1:9200/fuser' \
---header 'Content-Type: application/json' \
---data '{
-    "settings":{
-           "number_of_shards":1,     
-           "number_of_replicas":2, 
-           "index":{
-                  "analysis":{
-                         "analyzer":{
-                                "default":{
-                                       "tokenizer":"standard",   
-                                       "filter":[ 
-                                              "asciifolding",
-                                              "lowercase",
-                                              "ourEnglishFilter"
-                                       ]
-                                }
-                         },
-                         "filter":{
-                                "ourEnglishFilter":{
-                                       "type":"kstem"
-                                }
-                         }
-                  }
-           }
-    }
-}'
+curl -X DELETE "http://127.0.0.1:9200/wwwuser"
 ```
 
+## 文档操作 （记录）
+- 创建文档：POST /{索引库名}/_doc/文档id
+- 查询文档：GET /{索引库名}/_doc/文档id
+- 删除文档：DELETE /{索引库名}/_doc/文档id
+- 修改文档： 
+  - 全量修改：PUT /{索引库名}/_doc/文档id
+  - 增量修改：POST /{索引库名}/_update/文档id { "doc": {字段}}
 
-## 搜索文档
-url IP:9200/索引名称/索引类型/_search
-索引类型可以没有
+### 插入/覆盖文档
 ```bash
-curl "http://127.0.0.1:9200/chentao_demo/_search"
-```
-
-## 按ID查询
-curl -GET IP:9200/索引名称/索引类型/ID
-```bash
- curl "http://127.0.0.1:9200/chentao_demo/_doc/100"
-```
-
-## 删除文档
-```bash
-curl -X DELETE "http://127.0.0.1:9200/chentao_demo/_doc/100"
-```
-
-## 插入/覆盖文档
-```bash
-curl --location --request PUT 'http://127.0.0.1:9200/chentao_demo/_doc/1' \
+curl —X PUT 'http://127.0.0.1:9200/chentao_demo/_doc/1' \
 --header 'Content-Type: application/json' \
 --data '{
     "ID":1,
@@ -85,7 +65,18 @@ curl --location --request PUT 'http://127.0.0.1:9200/chentao_demo/_doc/1' \
 }'
 ```
 
-## 修改文档
+### 按ID查询
+curl -GET IP:9200/索引名称/索引类型/ID
+```bash
+ curl "http://127.0.0.1:9200/chentao_demo/_doc/100"
+```
+
+### 删除文档
+```bash
+curl -X DELETE "http://127.0.0.1:9200/chentao_demo/_doc/100"
+```
+
+### 修改文档
 ```bash
 curl 'http://127.0.0.1:9200/chentao_demo/_update/1' \
 --header 'Content-Type: application/json' \
@@ -98,12 +89,13 @@ curl 'http://127.0.0.1:9200/chentao_demo/_update/1' \
 }'
 ```
 
-## 检索全部
+### 检索全部
+url IP:9200/索引名称/索引类型/_search
 ```bash
 curl 'http://127.0.0.1:9200/chentao_demo/_search?pretty'
 ```
 
-## 轻量搜索
+### 轻量搜索
 query：告诉我们定义查询
 match_all：运行简单类型查询指定索引中的所有文档
 size：返回结果集数量
@@ -135,7 +127,7 @@ curl 'http://127.0.0.1:9200/chentao_demo/_search?pretty' \
 }'
 ```
 
-## 返回指定字段
+### 返回指定字段
 match     模糊匹配 对应 txt类型
 match_all 精确匹配 对应 keywords类型
 ```bash
@@ -154,24 +146,3 @@ curl 'http://127.0.0.1:9200/chentao_demo/_search?pretty' \
 }'
 ```
 
-
-## 一旦es磁盘出现爆满，所有的index都会被自动设置为read-only，重启es无法解除该状态，需要发送请求，如下
-```bash
-curl -X PUT 'http://127.0.0.1:9200/_settings' \
---header 'Content-Type: application/json' \
---data '{
-    "index": {
-        "blocks": {
-        "read_only_allow_delete": "false"
-        }
-    }
-}'
-```
-
-```bash
-curl -X PUT 'http://127.0.0.1:9200/_all/_settings' \
---header 'Content-Type: application/json' \
---data '{
-    "index.blocks.read_only_allow_delete": null
-}'
-```
