@@ -163,3 +163,33 @@ GET /hotel/_search
 }
 ```
 
+function score的运行流程如下：
+- 1）根据原始条件查询搜索文档，并且计算相关性算分，称为原始算分（query score）
+- 2）根据过滤条件，过滤文档
+- 3）符合过滤条件的文档，基于算分函数运算，得到函数算分（function score）
+- 4）将原始算分（query score）和函数算分（function score）基于运算模式做运算，得到最终结果，作为相关性算分
+![](../static/img_1.png)
+
+
+---
+
+测试，在未添加算分函数时，如家得分如下：
+
+![](../static/img_2.png)
+
+添加了算分函数后，如家得分就提升了：
+
+![img.png](../static/img_3.png)
+
+
+### 2. 设置搜搜结果
+查询的DSL是一个大的JSON对象，包含下列属性：
+- query：查询条件
+- from和size：分页条件
+- sort：排序条件
+- highlight：高亮条件
+- aggs：定义聚合
+
+![img.png](img.png)
+
+![img_1.png](img_1.png)
