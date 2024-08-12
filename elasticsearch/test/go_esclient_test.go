@@ -6,6 +6,7 @@ import (
 	"fmt"
 	ela "github.com/elastic/go-elasticsearch/v7"
 	"github.com/stretchr/testify/assert"
+	"log"
 	"strings"
 	"testing"
 	"time"
@@ -13,6 +14,7 @@ import (
 
 var client *ela.Client
 var index = "book-0.1.0"
+var r map[string]interface{}
 
 func init() {
 	client = NewOfficeEsClient()
@@ -180,14 +182,38 @@ func TestPartialUpdateDocument(t *testing.T) {
 
 func TestSearch(t *testing.T) {
 	query := `{ "query": { "match_all": {} } }`
-	search, err := client.Search(
+	res, err := client.Search(
 		client.Search.WithIndex(index),
 		client.Search.WithBody(strings.NewReader(query)),
 	)
 	if err != nil {
+		t.Error(err.Error())
 		return
 	}
-	t.Log(search)
+	defer res.Body.Close()
+	t.Log(res)
+
+	if res.IsError() {
+		var e map[string]interface{}
+		if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
+			log.Fatalf("Error parsing the response body: %s", err)
+		} else {
+			// Print the response status and error information.
+			log.Fatalf("[%s] %s: %s",
+				res.Status(),
+				e["error"].(map[string]interface{})["type"],
+				e["error"].(map[string]interface{})["reason"],
+			)
+		}
+	}
+	var r SearchResponse
+	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
+		log.Fatalf("Error parsing the response body: %s", err)
+	}
+	t.Log(r.Hits.Hits)
+	for _, hits := range r.Hits.Hits {
+		t.Log(hits.Source)
+	}
 }
 
 func TestDeleteDoc(t *testing.T) {
@@ -206,4 +232,29 @@ func TestDeleteIndex(t *testing.T) {
 		return
 	}
 	fmt.Println(response)
+}
+
+type SearchResponse struct {
+	Took     int  `json:"took"`
+	TimedOut bool `json:"timed_out"`
+	Shards   struct {
+		Total      int `json:"total"`
+		Successful int `json:"successful"`
+		Skipped    int `json:"skipped"`
+		Failed     int `json:"failed"`
+	} `json:"_shards"`
+	Hits struct {
+		Total struct {
+			Value    int    `json:"value"`
+			Relation string `json:"relation"`
+		} `json:"total"`
+		MaxScore float64 `json:"max_score"`
+		Hits     []struct {
+			Index  string                 `json:"_index"`
+			Type   string                 `json:"_type"`
+			Id     string                 `json:"_id"`
+			Score  float64                `json:"_score"`
+			Source map[string]interface{} `json:"_source"`
+		} `json:"hits"`
+	} `json:"hits"`
 }

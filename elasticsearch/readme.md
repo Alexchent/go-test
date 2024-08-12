@@ -1,5 +1,6 @@
 # elastic api操作
 > https://www.cnblogs.com/buchizicai/p/17093719.html
+> https://blog.frognew.com/2021/05/go-elasticsearch-introduction.html
 
 mysql与elasticsearch的概念对比
 
@@ -89,6 +90,21 @@ curl 'http://127.0.0.1:9200/chentao_demo/_update/1' \
 }'
 ```
 
+修改age字段
+```bash
+curl -X POST "localhost:9200/chentao_demo/_update/10001?pretty" -H 'Content-Type: application/json' -d'
+{
+  "script" : {
+    "source": "ctx._source.age += params.count",
+    "lang": "painless",
+    "params" : {
+      "count" : 4
+    }
+  }
+}
+'
+```
+
 ### 检索全部
 url IP:9200/索引名称/索引类型/_search
 ```bash
@@ -145,4 +161,3 @@ curl 'http://127.0.0.1:9200/chentao_demo/_search?pretty' \
     ]
 }'
 ```
-
