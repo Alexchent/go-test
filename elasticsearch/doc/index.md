@@ -6,12 +6,12 @@ curl "http://127.0.0.1:9200/_cat/indices?v"
 ```
 2. 创建索引
 ```bash
-curl -X PUT "http://127.0.0.1:9200/wwwuser"
+curl -X PUT "http://127.0.0.1:9200/chentao_demo"
 ```
 
 3. 创建mapping
 ```bash
-curl -X PUT "http://127.0.0.1:9200/wwwuser" \
+curl -X PUT "http://127.0.0.1:9200/chentao_demo" \
 --header 'Content-Type: application/json' \
 --data '{
   "mappings": {
@@ -28,7 +28,12 @@ curl -X PUT "http://127.0.0.1:9200/wwwuser" \
 
 ```
 
+查看索引mapping
+```bash
+curl -XGET "http://127.0.0.1:9200/chentao_demo/_mapping?pretty" 
+```
+
 4. 删除索引
 ```bash
-curl -X DELETE "http://127.0.0.1:9200/wwwuser"
+curl -X DELETE "http://127.0.0.1:9200/chentao_demo"
 ```
