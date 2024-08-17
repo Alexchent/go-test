@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/olivere/elastic/v7"
+	"github.com/olivere/elastic/v7" // Deprecated: Use the official Elasticsearch client for Go at
 	"log"
 	"os"
 )
