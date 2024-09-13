@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/afex/hystrix-go/hystrix"
@@ -211,4 +212,14 @@ func TestHystrixRequestWithOverLimit(t *testing.T) {
 	}
 	wg.Wait()
 	fmt.Println("----------------")
+}
+
+func TestJsonEncode(t *testing.T) {
+	var data any
+	data = []string{"COIN_000001", "VIP_000001", "VIP_000002", "VIP_000003"}
+	marshal, err := json.Marshal(data)
+	if err != nil {
+		return
+	}
+	t.Log(string(marshal))
 }
