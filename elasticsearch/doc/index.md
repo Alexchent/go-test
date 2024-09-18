@@ -17,10 +17,14 @@ curl -X PUT "http://127.0.0.1:9200/chentao_demo" \
 --data '{
   "mappings": {
       "properties": {
-        "text": {
+        "all": {
           "type": "text",
           "analyzer": "ik_max_word"
-        }
+        },
+        "name": {
+          "type": "keywords",
+          "copy_to":"all"
+        },
       }
   }
 }'
