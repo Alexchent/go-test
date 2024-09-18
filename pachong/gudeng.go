@@ -11,12 +11,12 @@ import (
 
 // golang goquery selector(选择器) 示例大全 https://cloud.tencent.com/developer/article/1196783
 
-func ExampleScrape() {
+func ExampleScrape(url string) {
 	// Request the HTML page.
-	//res, err := http.Get("https://www.gutenberg.org/cache/epub/25271/pg25271-images.html")
-	res, err := http.Get("https://www.gutenberg.org/cache/epub/23962/pg23962-images.html")
+	res, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("http.get err:" + err.Error())
+		return
 	}
 	defer res.Body.Close()
 	if res.StatusCode != 200 {
@@ -26,7 +26,7 @@ func ExampleScrape() {
 	// Load the HTML document
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("goquery.NewDocumentFromReader err: %s", err.Error())
 	}
 
 	subtitle := doc.Find("#pg-title-no-subtitle").Text()
@@ -49,23 +49,8 @@ func ExampleScrape() {
 	})
 }
 
-type P struct {
-	fds map[string]*os.File
-}
-
-func (i *P) Append(file, content string) error {
-	fd, ok := i.fds[file]
-	if !ok {
-		fd, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
-		if err != nil {
-			return err
-		}
-		i.fds[file] = fd
-	}
-	_, err := fd.WriteString(content + "\n")
-	return err
-}
-
 func main() {
-	ExampleScrape()
+	//url := "https://www.gutenberg.org/cache/epub/25271/pg25271-images.html"
+	url := "https://www.gutenberg.org/cache/epub/23962/pg23962-images.html"
+	ExampleScrape(url)
 }
