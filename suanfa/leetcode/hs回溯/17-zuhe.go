@@ -19,7 +19,7 @@ func letterCombinations(digits string) []string {
 	if len(digits) == 0 {
 		return combinations
 	}
-
+	// 取出第一层，而后在这一层的基础上，扩张
 	number := string(digits[0])
 	str := phoneMap[number]
 	for _, char := range str {
@@ -41,4 +41,37 @@ func letterCombinations(digits string) []string {
 		next = nil
 	}
 	return combinations
+}
+
+// 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
+//
+// 你可以按 任何顺序 返回答案。
+func combine2(n int, k int) [][]int {
+	var (
+		res    [][]int
+		subset []int
+	)
+
+	var backtrace func(int)
+	backtrace = func(start int) {
+		// 剪枝
+		if len(subset)+(n-start+1) < k {
+			return
+		}
+		// 将合法的组合加入结果集
+		if len(subset) == k {
+			res = append(res, append([]int{}, subset...))
+			return
+		}
+		// 正式的搜索过程
+		for i := start; i <= n; i++ {
+			subset = append(subset, i)
+			backtrace(i + 1)
+			// 回退一步
+			subset = subset[:len(subset)-1]
+		}
+	}
+	// 启动回溯
+	backtrace(1)
+	return res
 }
