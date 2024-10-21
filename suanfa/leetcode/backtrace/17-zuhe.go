@@ -1,5 +1,7 @@
 package hs
 
+import "fmt"
+
 // 17.电话号码组合
 // 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
 //
@@ -74,4 +76,59 @@ func combine2(n int, k int) [][]int {
 	// 启动回溯
 	backtrace(1)
 	return res
+}
+
+// permute 全排列
+func permute(nums []int) [][]int {
+	var res [][]int
+	dfs(nums, []int{}, &res)
+	return res
+}
+
+func dfs(nums, path []int, res *[][]int) {
+	if len(nums) == 0 {
+		*res = append(*res, append([]int{}, path...))
+		return
+	}
+	for i, num := range nums {
+		// 深度优先遍历
+		// 取出数组中的第i个放到临时存储空间path中，数组剩下的部分作为新的num。此时path中就是深度优先第一轮的到的数
+		dfs(append(append([]int{}, nums[:i]...), nums[i+1:]...), append(path, num), res)
+	}
+}
+
+// 数组总和
+// 给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
+//
+// candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。
+//
+// 对于给定的输入，保证和为 target 的不同组合数少于 150 个。
+func combinationSum(candidates []int, target int) [][]int {
+	var comb []int
+	var ans [][]int
+	var dfs func(target, idx int)
+	dfs = func(target, idx int) {
+		// 遍历到最后一个数即退出
+		if idx == len(candidates) {
+			return
+		}
+		// 剪枝，一路深度优先遍历退出
+		if target == 0 {
+			ans = append(ans, append([]int{}, comb...))
+			return
+		}
+		// 直接跳过进入下一层
+		dfs(target, idx+1)
+
+		// 处理当前层
+		if target-candidates[idx] >= 0 {
+			comb = append(comb, candidates[idx])
+			fmt.Println(comb)
+			dfs(target-candidates[idx], idx)
+			// 撤销，回到上一步
+			comb = comb[:len(comb)-1]
+		}
+	}
+	dfs(target, 0)
+	return ans
 }
