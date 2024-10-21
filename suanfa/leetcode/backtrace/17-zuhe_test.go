@@ -1,6 +1,7 @@
 package hs
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -27,4 +28,9 @@ func Test_combinationSum(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_generateParenthesis(t *testing.T) {
+	res := generateParenthesis(3)
+	fmt.Println(res)
 }
