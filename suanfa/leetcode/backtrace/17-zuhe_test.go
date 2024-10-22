@@ -34,3 +34,9 @@ func Test_generateParenthesis(t *testing.T) {
 	res := generateParenthesis(3)
 	fmt.Println(res)
 }
+
+func Test_exist(t *testing.T) {
+	b := [][]string{{"A", "B", "C", "E"}, {"S", "F", "C", "S"}, {"A", "D", "E", "E"}}
+	r := exist(b, "ABCCED")
+	t.Log(r)
+}
